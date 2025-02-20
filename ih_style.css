@@ -108,11 +108,10 @@ body{
     .contenedor-principal{
         flex-direction: column;
         align-items: center; 
-        background: lightcoral;
         justify-content: unset;
     }
     .contenedor-mazos{flex-direction: row; width:100%;}
     .mazo1, .mazo2{aspect-ratio: 3/2;}
-    .visualizador{max-width: 90%;}
+    .visualizador{max-width: 90%; height: 200px;}
 
 }
