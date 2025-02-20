@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frases Aleatorias</title>
+    <link rel="stylesheet" href="ih_style.css">
+    <script src="funciones.js"></script> 
+</head>
+<body>
+
+<div class="contenedor-principal">
+    <div class="contendor-encabezado">
+        <h1>INSIGHT HUNTERS</h1>
+        <p>LA BÚSQUEDA CREATIVA</p>
+    </div>
+    <div class="contenedor-mazos">
+        <button onclick="cargarInsight('A')" class="mazo1"></button>
+        <button onclick="cargarReto('B')" class="mazo2"></button>
+    </div>
+    <div class="visualizador">
+        <p id="frase">Selecciona un mazo para ver una frase.</p>
+    </div>
+</div>
+    
+    
+</body>
+</html>
+
+<!-- <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzzjhZEPFnGTXMRxnUVpyc-UUgB1HfJ1dQSONna8L1fiCEAtrXeymmnce4Iu03EwBl5/exec";
+
+    async function cargarFrase(grupo) {
+        try {
+            let response = await fetch(API_URL + "?nocache=" + new Date().getTime());
+            let data = await response.json();
+            
+            let frases = grupo === 'A' ? data.grupoA : data.grupoB;
+            
+            if (frases.length === 0) {
+                document.getElementById("frase").innerText = "No hay frases disponibles.";
+                return;
+            }
+            
+            let fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+            document.getElementById("frase").innerText = fraseAleatoria;
+        } catch (error) {
+            console.error("Error al obtener las frases", error);
+            document.getElementById("frase").innerText = "Error al cargar las frases.";
+        }
+    }
+</script> -->
