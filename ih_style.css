@@ -1,0 +1,269 @@
+
+:root{
+    --bg-purple: #1F1C3D;
+    --light-purple: #ABA9D5;
+    --light-orange: #FBCEA5;
+}
+html {scroll-behavior: smooth;}
+*{ font-family: inter; box-sizing: border-box;}
+
+p{ font-size: 1.5rem; font-weight: 400;}
+
+a:hover{
+    opacity: .5;
+}
+ul{padding: 0;}
+
+/*Sección Hero Section*/
+.navbar{
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 46px;
+padding: 10vh 0;
+}
+.navbar a{color: var(--light-purple); text-decoration: none; text-align: center; font-size: 1.5rem;}
+.nav-links{ display: flex; flex-direction: row; gap: 24px;}
+#ih-logo{max-height: 72px;}
+
+
+.hero-section{
+    background-color: var(--bg-purple);
+      
+}
+.hero-container{
+    width: 100%;
+    position: relative;
+    margin-top: 20vh;
+}
+#img-busqueda{
+    position: absolute;
+    max-width: 50vw;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20%);
+}
+#img-city, #img-people{
+    width: 100%;
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+}
+#img-sun{width: 100%;}
+#img-city{top: 0; transform: translateY(10%);}
+
+/* Sección Que es IH */
+#que-es-IH{
+    background-color: var(--bg-purple);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    color: var(--light-purple);
+    padding: 20vh 5vw;
+}
+
+.encabezado, .info-text{
+    width: 50%;
+    gap: 46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 2vw;
+
+}
+#que-es-IH{overflow: hidden;}
+#que-es-IH h2{ font-size: 3.5rem; font-weight: bold; line-height: 4.5rem; letter-spacing: -2%; margin: 0;}
+#que-es-IH p{font-size: 1.25rem; margin: 0;}
+span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
+
+/* Sección Cómo Jugar */
+#como-jugar{min-height: 200px; padding: 5vw; background: linear-gradient(#1F1C3D, #fff);}
+#como-jugar h2{
+    font-size: 3.5rem;
+    text-align: center;
+}
+#como-jugar>div{
+    background-color: #ABA9D5;
+    border-radius: 12vw; 
+    position: relative; 
+    min-height: 600px; 
+    padding: 3em;
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.dados{
+    position: absolute;
+    top: 0; right: 0;
+    width: 250px;
+    transform: translateY(-50%) translateX(-50%);
+}
+.row-cards{ display: flex;flex-direction: row;}
+#como-jugar .info-card{ 
+    display: flex;
+    flex-direction: 
+    column; border: 1px solid black; 
+    margin-left: -60px;
+}
+#como-jugar .info-card:first-child {
+    margin-left: 0;
+  }
+.info-card:hover{cursor: pointer;}
+#como-jugar .style-1{
+    background-color: var(--light-orange);
+    stroke: 2px solid var(--bg-purple);
+    border-radius: 3rem;
+    padding: 3rem;
+}
+#como-jugar .style-1>span{
+    border: 2px solid;
+    border-radius: 2rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+#como-jugar .style-2{
+    background-color: #fff;
+    stroke: 2px solid var(--bg-purple);
+    border-radius: 3rem;
+    padding: 3rem;
+}
+.style-2 span{font-weight: bold; font-size: 1.5rem;}
+.conclusion-text{
+    text-align: center;
+    margin: 5vh auto;
+}
+
+/* Sección Juego / Empieza la partida */
+#juego{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10vh 5vw;
+}
+.zona-interactiva{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    padding: 4rem 0;
+}
+.visualizador{
+    width: 250px;
+    height: 250px;
+    border: 1px solid;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+    justify-content: space-between;
+}
+.visualizador.show{display: flex;}
+.mazo{
+    position: relative;
+    width: 250px;
+    aspect-ratio: 250 / 306;
+    height: auto;
+}
+.mazo img{
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.mazo img.mazo-img{width: 250px; aspect-ratio: 250 / 306;
+    height: auto; position: relative;}
+.card-draggable{
+    z-index: 10;
+}
+#juego h2{
+    font-size: 3.5rem;
+    text-align: center;
+    color: var(--bg-purple);
+}
+#ic_card_ih{width: 48px;}
+.card-draggable:hover{cursor: grab;}
+
+/*Footer*/
+footer{ display: flex; flex-direction: column; align-items: center; padding: 4rem 0; border-top: 2px solid var(--bg-purple);}
+.footer-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+}
+.footer-links li{text-decoration: none;}
+.footer-links img{height: 50px;}
+footer p{font-size: 16px;}
+
+
+@media screen and (max-width: 900px){
+    p { font-size: 1rem; }
+    .hero-section { height: 100vh; padding: 5vh 0; }
+    .navbar{padding: 5vh 0;}
+    .navbar a{font-size: 1rem;}
+    .hero-container{position: absolute; bottom: 0; margin: 0;}
+    #img-busqueda{max-width: 70%; top: -25%;}
+
+    #que-es-IH{flex-direction: column; padding: 10vh 5vw;}
+    span.chip{padding: 0;}
+    .encabezado, .info-text{width: unset; padding: 4vh 0;}
+
+    .dados{width: 160px; top: 0; left: 0; transform: translate(75%, -50%);}
+    .row-cards{flex-direction: column;}
+    #como-jugar .info-card{margin-left: unset; margin-top: -60px;}
+    #como-jugar h2{padding-bottom: 4rem;}
+    .conclusion-text{line-height: 150%; text-align: left;}
+
+    #juego{padding:5vh 0;}
+    .mazo{width: 200px; }
+    .mazo img{width: 200px;}
+    .mazo img.mazo-img{width: 200px;}
+    #juego h2{margin: 1.5rem 0;}
+    #juego p{padding: 0 5vw; text-align: center;}
+    .zona-interactiva{flex-direction: column; padding: 2rem 0;}
+
+    .footer-links{flex-direction: column; align-items: center;}
+    .footer-links img{height: unset; width: 150px;}
+    
+  }
+
+  @media screen and (min-width: 1900px){
+    p{ font-size: 28px; font-weight: 400;}
+    #que-es-IH h2{font-size: 67px;}
+    #que-es-IH p{font-size: 28px;}
+    .navbar a{font-size: 28px;}
+    #como-jugar > div{border-radius: 10rem; min-height: 800px;}
+  }
+
+  /*Animación revelación progresiva*/
+.progr-disc {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translatex(-100%);
+    transition: all 1s;
+}
+
+.progr-disc.disc-right{ transform: translatex(100%);}
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0) !important;
+    display: block;
+}
+
+.delay1{transition-delay: 200ms;}
+.delay2{transition-delay: 400ms;}
+.delay3{transition-delay: 600ms;}
+.delay4{transition-delay: 800ms;}
