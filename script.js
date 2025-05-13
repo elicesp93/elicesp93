@@ -44,98 +44,196 @@ fetch('frases.json')
   .then(data => {
     frases = data;
     jsonCargado = true;
+    console.log('JSON loaded successfully:', frases);
   })
-  .catch(err => {});
+  .catch(err => {
+    console.error('Error loading JSON:', err);
+  });
 
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
-  const visualizador = document.querySelector('.visualizador');
+  const zonaInteractiva = document.querySelector('.zona-interactiva');
+  const visualizador = document.querySelector('.zona-interactiva .visualizador');
+  const visualizadorMobile = document.querySelector('.zona-interactiva-mobile .visualizador');
   const cartas = document.querySelectorAll('.card-draggable');
   
-  // Permitir soltar sobre el visualizador
-  visualizador.addEventListener('dragover', e => {
-    e.preventDefault();
-    // Añadir clase visual para indicar que se puede soltar
-    visualizador.classList.add('drag-over');
-  });
-  
-  visualizador.addEventListener('dragleave', () => {
-    // Quitar la clase visual cuando sale del área
-    visualizador.classList.remove('drag-over');
-  });
-  
-  // Al soltar, mostrar frase correspondiente
-  visualizador.addEventListener('drop', e => {
-    e.preventDefault();
-    visualizador.classList.remove('drag-over');
+  console.log('DOM loaded, cards found:', cartas.length);
+  console.log('Desktop visualizador:', visualizador);
+  console.log('Mobile visualizador:', visualizadorMobile);
+  console.log('Initial screen width:', window.innerWidth);
+  console.log('Is mobile?', window.matchMedia('(max-width: 900px)').matches);
+
+  // Función compartida para mostrar el contenido
+  const mostrarContenido = (tipo) => {
+    console.log('Showing content for type:', tipo);
+    console.log('Current frases data:', frases);
     
-    const tipo = e.dataTransfer.getData('text/plain');
+    // Determinar qué visualizador usar basado en el tamaño de pantalla
+    const targetVisualizador = window.matchMedia('(max-width: 900px)').matches ? visualizadorMobile : visualizador;
+    console.log('Using visualizador:', targetVisualizador);
     
-    // Mostrar las frases disponibles
     if (tipo === 'insights') {
-      const seleccionadas = frases.insights;
-      if (seleccionadas && seleccionadas.length > 0) {
-        const aleatoria = seleccionadas[Math.floor(Math.random() * seleccionadas.length)];
-        visualizador.innerHTML = `
+      // Combinar todos los insights de ambas categorías
+      const todosLosInsights = [
+        ...frases.insights.find(cat => cat['is-insight']).insights,
+        ...frases.insights.find(cat => !cat['is-insight']).insights
+      ];
+      
+      console.log('Combined insights:', todosLosInsights);
+      
+      if (todosLosInsights && todosLosInsights.length > 0) {
+        const aleatoria = todosLosInsights[Math.floor(Math.random() * todosLosInsights.length)];
+        console.log('Selected random insight:', aleatoria);
+        
+        const content = `
+          <span class="chip-card distinctive-insight">Insight</span>
           <p style="margin: 0;">${aleatoria.frase}</p>
-          <a href="${aleatoria.recurso}" target="_blank">Ver recurso</a>
           <img src="recursos/ic_card_ih.svg" alt="Insight Hunters" id="ic_card_ih">
         `;
+        console.log('Setting content to:', content);
+        
+        targetVisualizador.innerHTML = content;
+        targetVisualizador.style.display = 'flex';
+        console.log('Visualizador after update:', targetVisualizador.innerHTML);
       } else {
-        visualizador.innerHTML = '<p>No hay frases de insights disponibles.</p>';
+        targetVisualizador.innerHTML = '<p>No hay frases de insights disponibles.</p>';
       }
     } else if (tipo === 'retos') {
-      const seleccionadas = frases.retos;
-      if (seleccionadas && seleccionadas.length > 0) {
-        const aleatoria = seleccionadas[Math.floor(Math.random() * seleccionadas.length)];
-        visualizador.innerHTML = `
+      // Combinar todos los retos de todas las categorías
+      const todosLosRetos = frases.retos.reduce((acc, categoria) => {
+        return [...acc, ...categoria.retos.map(reto => ({
+          ...reto,
+          tipo: categoria.tipo
+        }))];
+      }, []);
+      
+      console.log('Combined retos:', todosLosRetos);
+      
+      if (todosLosRetos && todosLosRetos.length > 0) {
+        const aleatoria = todosLosRetos[Math.floor(Math.random() * todosLosRetos.length)];
+        console.log('Selected random reto:', aleatoria);
+        
+        const content = `
+          <span class="chip-card distinctive-reto">Reto</span>
+          <p style="margin: 0;"><strong>${aleatoria.tipo}</strong></p>
           <p style="margin: 0;">${aleatoria.frase}</p>
-          <a href="${aleatoria.recurso}" target="_blank">Ver recurso</a>
+          ${aleatoria.autor ? `<p class="autor">- ${aleatoria.autor}</p>` : ''}
           <img src="recursos/ic_card_ih.svg" alt="Insight Hunters" id="ic_card_ih">
         `;
+        console.log('Setting content to:', content);
+        
+        targetVisualizador.innerHTML = content;
+        targetVisualizador.style.display = 'flex';
+        console.log('Visualizador after update:', targetVisualizador.innerHTML);
       } else {
-        visualizador.innerHTML = '<p>No hay frases de retos disponibles.</p>';
+        targetVisualizador.innerHTML = '<p>No hay frases de retos disponibles.</p>';
       }
     } else {
-      visualizador.innerHTML = `<p>Tipo desconocido: "${tipo}"</p>`;
+      targetVisualizador.innerHTML = `<p>Tipo desconocido: "${tipo}"</p>`;
     }
+  };
+  
+  // Permitir soltar sobre el visualizador (solo para desktop)
+  zonaInteractiva.addEventListener('dragover', e => {
+    e.preventDefault();
+    zonaInteractiva.classList.add('drag-over');
   });
   
-  // Asignar tipo de carta al arrastrar
-  cartas.forEach(card => {
-    // Asegurar que las cartas son arrastrables
-    card.draggable = true;
+  zonaInteractiva.addEventListener('dragleave', () => {
+    zonaInteractiva.classList.remove('drag-over');
+  });
+  
+  // Al soltar, mostrar frase correspondiente (solo para desktop)
+  zonaInteractiva.addEventListener('drop', e => {
+    e.preventDefault();
+    zonaInteractiva.classList.remove('drag-over');
     
-    card.addEventListener('dragstart', e => {
+    const tipo = e.dataTransfer.getData('text/plain');
+    mostrarContenido(tipo);
+  });
+  
+  // Asignar tipo de carta al arrastrar y manejar clicks
+  cartas.forEach((card, index) => {
+    // Determinar el tipo basado en la clase del contenedor padre
+    const parentElement = card.closest('.mazo');
+    let tipo = '';
+    
+    if (parentElement && parentElement.classList.contains('type-insight')) {
+      tipo = 'insights';
+    } else if (parentElement && parentElement.classList.contains('type-reto')) {
+      tipo = 'retos';
+    }
+
+    console.log(`Card ${index} type:`, tipo);
+
+    // Función para manejar la interacción con la carta
+    const handleCardInteraction = (event) => {
+      event.preventDefault(); // Prevent default behavior
+      event.stopPropagation(); // Stop event bubbling
+      
+      console.log('Card clicked/tapped');
+      console.log('Event type:', event.type);
+      console.log('Screen width at click:', window.innerWidth);
+      console.log('Is mobile at click?', window.matchMedia('(max-width: 900px)').matches);
+      
       if (!jsonCargado) {
-        e.preventDefault();
+        console.log('JSON not loaded yet');
         return;
       }
       
-      // Determinar el tipo basado en la clase del contenedor padre
-      let tipo = '';
-      const parentElement = card.closest('.mazo');
-      
-      if (parentElement && parentElement.classList.contains('type-insight')) {
-        tipo = 'insights';
-      } else if (parentElement && parentElement.classList.contains('type-reto')) {
-        tipo = 'retos';
+      // Verificar si es una pantalla móvil
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        console.log('Mobile detected, showing content');
+        mostrarContenido(tipo);
+      } else {
+        console.log('Desktop detected, not showing content on click');
       }
-      
-      e.dataTransfer.setData('text/plain', tipo);
-      
-      // Añadir clase visual para indicar que se está arrastrando
-      card.classList.add('dragging');
-    });
+    };
+
+    // Evento de click para todas las pantallas
+    card.addEventListener('click', handleCardInteraction);
+    card.addEventListener('touchend', handleCardInteraction);
     
-    card.addEventListener('dragend', () => {
-      // Quitar clase visual cuando termina el arrastre
-      card.classList.remove('dragging');
-    });
+    // Prevent focus and keyboard
+    card.setAttribute('tabindex', '-1');
+    card.style.outline = 'none';
+    
+    // Solo habilitar drag and drop en pantallas grandes
+    if (window.matchMedia('(min-width: 901px)').matches) {
+      console.log(`Card ${index} drag enabled`);
+      card.draggable = true;
+      
+      card.addEventListener('dragstart', e => {
+        console.log('Drag started');
+        if (!jsonCargado) {
+          console.log('JSON not loaded, preventing drag');
+          e.preventDefault();
+          return;
+        }
+        
+        e.dataTransfer.setData('text/plain', tipo);
+        card.classList.add('dragging');
+      });
+      
+      card.addEventListener('dragend', () => {
+        console.log('Drag ended');
+        card.classList.remove('dragging');
+      });
+    } else {
+      console.log(`Card ${index} drag disabled`);
+      card.draggable = false;
+    }
+  });
+
+  // Add window resize listener to track screen size changes
+  window.addEventListener('resize', () => {
+    console.log('Window resized');
+    console.log('New screen width:', window.innerWidth);
+    console.log('Is mobile after resize?', window.matchMedia('(max-width: 900px)').matches);
   });
 });
 
-// Añadir estilos de ayuda visual en caso de que no estén en tu CSS
+// // Añadir estilos de ayuda visual en caso de que no estén en tu CSS
 const style = document.createElement('style');
 style.textContent = `
   .visualizador.drag-over {
@@ -144,6 +242,17 @@ style.textContent = `
   }
   .card-draggable.dragging {
     opacity: 0.7;
+  }
+  @media (max-width: 900px) {
+    .card-draggable {
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
   }
 `;
 document.head.appendChild(style);

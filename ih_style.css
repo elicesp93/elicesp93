@@ -3,6 +3,7 @@
     --bg-purple: #1F1C3D;
     --light-purple: #ABA9D5;
     --light-orange: #FBCEA5;
+    --normal-orange: #EF7E09;
 }
 html {scroll-behavior: smooth;}
 *{ font-family: inter; box-sizing: border-box;}
@@ -34,23 +35,28 @@ padding: 10vh 0;
 .hero-container{
     width: 100%;
     position: relative;
-    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-#img-busqueda{
+.hero-section h1{font-size: 7rem; color: var(--light-purple); text-align: center; max-width: 50%; margin: 0 auto; }
+
+/* #img-busqueda{
     position: absolute;
     max-width: 50vw;
     top: -10%;
     left: 50%;
     transform: translateX(-50%) translateY(-20%);
-}
+} */
 #img-city, #img-people{
     width: 100%;
     position: absolute; 
     bottom: 0;
     left: 0;
 }
-#img-sun{width: 100%;}
-#img-city{top: 0; transform: translateY(10%);}
+#img-sun{width: 90%;}
+#img-city{transform: translateY(-45%);}
+#img-people{transform: translateY(1px);}
 
 /* Sección Que es IH */
 #que-es-IH{
@@ -60,7 +66,7 @@ padding: 10vh 0;
     flex-wrap: wrap;
     align-items: stretch;
     color: var(--light-purple);
-    padding: 20vh 5vw;
+    padding: 10vh 5vw;
 }
 
 .encabezado, .info-text{
@@ -73,7 +79,7 @@ padding: 10vh 0;
 
 }
 #que-es-IH{overflow: hidden;}
-#que-es-IH h2{ font-size: 3.5rem; font-weight: bold; line-height: 4.5rem; letter-spacing: -2%; margin: 0;}
+#que-es-IH h2{ font-size: 3.5rem; font-weight: bold; line-height: 100%; letter-spacing: -2%; margin: 0;}
 #que-es-IH p{font-size: 1.25rem; margin: 0;}
 span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
 
@@ -82,6 +88,8 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
 #como-jugar h2{
     font-size: 3.5rem;
     text-align: center;
+    color: var(--bg-purple);
+    
 }
 #como-jugar>div{
     background-color: #ABA9D5;
@@ -135,6 +143,9 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
     padding: 3rem;
 }
 .style-2 span{font-weight: bold; font-size: 1.5rem;}
+
+.info-card .distinctive-insight {color: var(--light-purple);}
+.info-card .distinctive-reto{color: var(--normal-orange);}
 .conclusion-text{
     text-align: center;
     margin: 5vh auto;
@@ -146,7 +157,6 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10vh 5vw;
 }
 .zona-interactiva{
     width: 100%;
@@ -157,9 +167,34 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
     justify-content: center;
     padding: 4rem 0;
 }
+.zona-interactiva-mobile{display: none;}
+
+.mazo{
+    position: relative;
+    width: 320px;
+    aspect-ratio: 250 / 306;
+    height: auto;
+}
+.mazo img{
+    width: 320px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.mazo img.mazo-img{width: 320px; aspect-ratio: 250 / 306;
+    height: auto; position: relative;}
+.card-draggable{
+    z-index: 10;
+}
+#juego h2{
+    font-size: 3.5rem;
+    text-align: center;
+    color: var(--bg-purple);
+    margin: 0 auto;
+}
 .visualizador{
-    width: 250px;
-    height: 250px;
+    width: 320px;
+    min-height: 320px;
     border: 1px solid;
     border-radius: 2rem;
     display: flex;
@@ -170,33 +205,16 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
     justify-content: space-between;
 }
 .visualizador.show{display: flex;}
-.mazo{
-    position: relative;
-    width: 250px;
-    aspect-ratio: 250 / 306;
-    height: auto;
-}
-.mazo img{
-    width: 250px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.mazo img.mazo-img{width: 250px; aspect-ratio: 250 / 306;
-    height: auto; position: relative;}
-.card-draggable{
-    z-index: 10;
-}
-#juego h2{
-    font-size: 3.5rem;
-    text-align: center;
-    color: var(--bg-purple);
-}
+
+.visualizador p{font-size: 1.25rem; padding: .5rem 0;}
+.visualizador .chip-card{font-size: 1rem; font-weight: bold; width: 100%;}
+.visualizador .distinctive-insight{color: var(--light-purple);}
+.visualizador .distinctive-reto{color: var(--normal-orange);}
 #ic_card_ih{width: 48px;}
 .card-draggable:hover{cursor: grab;}
 
 /*Footer*/
-footer{ display: flex; flex-direction: column; align-items: center; padding: 4rem 0; border-top: 2px solid var(--bg-purple);}
+footer{ display: flex; flex-direction: column; align-items: center; padding: 5vh 0; border-top: 2px solid var(--bg-purple); margin-top: 5vh;}
 .footer-links{
     display: flex;
     flex-direction: row;
@@ -209,33 +227,43 @@ footer p{font-size: 16px;}
 
 
 @media screen and (max-width: 900px){
-    p { font-size: 1rem; }
-    .hero-section { height: 100vh; padding: 5vh 0; }
+    p { font-size: 1.25rem; }
+    .hero-section { height: 100vh; padding: 2vh 0; }
     .navbar{padding: 5vh 0;}
-    .navbar a{font-size: 1rem;}
-    .hero-container{position: absolute; bottom: 0; margin: 0;}
+    .navbar a{font-size: 1.25rem;}
+    .nav-links{flex-direction: column; gap: 1rem;}
+    .hero-container{bottom: 0; margin: 0;}
+    .hero-container h1{font-size: 4rem; max-width: unset;}
     #img-busqueda{max-width: 70%; top: -25%;}
 
     #que-es-IH{flex-direction: column; padding: 10vh 5vw;}
+    #que-es-IH h2{font-size: 2.5rem;}
     span.chip{padding: 0;}
-    .encabezado, .info-text{width: unset; padding: 4vh 0;}
+    .encabezado, .info-text{width: unset; padding: 2vh 0;}
 
     .dados{width: 160px; top: 0; left: 0; transform: translate(75%, -50%);}
     .row-cards{flex-direction: column;}
     #como-jugar .info-card{margin-left: unset; margin-top: -60px;}
-    #como-jugar h2{padding-bottom: 4rem;}
+    #como-jugar h2{padding-bottom: 4rem; font-size: 2.5rem;}
     .conclusion-text{line-height: 150%; text-align: left;}
 
-    #juego{padding:5vh 0;}
-    .mazo{width: 200px; }
-    .mazo img{width: 200px;}
-    .mazo img.mazo-img{width: 200px;}
-    #juego h2{margin: 1.5rem 0;}
+    #juego{padding:5vh 5vw;}
+    .zona-interactiva-mobile{display: flex; width: 100%; flex-direction: column;}
+    .cards-container-mobile{width: 100%; display: flex; }
+    .visualizador{position: inherit;}
+    .mazo{max-width: 50%;}
+    .mazo img{max-width: 100%;}
+    .mazo img.mazo-img{max-width: 100%;}
+    #juego h2{margin: 1.5rem 0; font-size: 2.5rem;}
     #juego p{padding: 0 5vw; text-align: center;}
-    .zona-interactiva{flex-direction: column; padding: 2rem 0;}
+    
 
-    .footer-links{flex-direction: column; align-items: center;}
-    .footer-links img{height: unset; width: 150px;}
+    
+    .zona-interactiva{display: none;}
+
+    .footer-links{flex-direction: column; align-items: center; gap: 5vw;}
+    .footer-links img{height: unset; height: 48px;}
+
     
   }
 
