@@ -102,6 +102,7 @@ span.chip{font-size: 1.5rem; width: 100%; padding: 0 2vw 5vh 2vw}
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    max-width: 1920px;
 }
 .dados{
     position: absolute;
@@ -251,7 +252,7 @@ footer p{font-size: 16px;}
     .row-cards{flex-direction: column;}
     #como-jugar .info-card{margin-left: unset; margin-top: -60px; width: 100%;}
     #como-jugar h2{padding-bottom: 4rem; font-size: 2.5rem;}
-    .conclusion-text{line-height: 150%; text-align: left; margin: 2rem auto; width: 80%;}
+    .conclusion-text{line-height: 150%; text-align: center; margin: 2rem auto; width: 80%;}
 
     #juego{padding:5vh 5vw;}
     .indicacion-mobile{display: block;}
@@ -274,6 +275,9 @@ footer p{font-size: 16px;}
   }
   @media screen and (max-width: 720px){
     .nav-links{flex-direction: column; gap: 1rem;}
+    .hero-container h1{font-size: 3.5rem; max-width: 85%;}
+    #como-jugar > div{padding: 2rem .5rem;}
+    #como-jugar .info-card{min-width: unset;}
   }
 
   @media screen and (min-width: 1900px){
