@@ -38,7 +38,7 @@ padding: 10vh 0;
     flex-direction: column;
     align-items: center;
 }
-.hero-section h1{font-size: 7rem; color: var(--light-purple); text-align: center; max-width: 50%; margin: 0 auto; }
+.hero-section h1{font-size: 7rem; color: var(--light-purple); text-align: center; max-width: 50%; margin-top: 0; }
 
 /* #img-busqueda{
     position: absolute;
@@ -239,10 +239,35 @@ footer{ display: flex; flex-direction: column; align-items: center; padding: 5vh
 footer p{font-size: 16px;}
 #creative-commons{max-width: 200px;height: 50px; margin: 1rem;;}
 
+.timer {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--light-purple);
+  padding: .5rem .25rem;
+  border-radius: .25rem;
+  color: var(--bg-purple);
+  z-index: 100;
+  min-width: 72px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.timer.warning {
+  background-color: #6c2d2d;
+  color: white;
+}
+
+.timer.finished {
+  background-color: black;
+  color: white;
+}
 
 @media screen and (max-width: 1160px){
     p { font-size: 1.25rem; }
-    .hero-section { height: 100vh; padding: 2vh 0; }
+    .hero-section { padding: 2vh 0;}
     .navbar{padding: 5vh 0; gap: unset;}
     .navbar a{font-size: 1.25rem;}
     
@@ -250,14 +275,15 @@ footer p{font-size: 16px;}
     .hero-container h1{font-size: 4rem; max-width: unset;}
     #img-busqueda{max-width: 70%; top: -25%;}
 
-    #que-es-IH{flex-direction: column; padding: 10vh 5vw; margin-top: 10vh;}
+    #que-es-IH{flex-direction: column; padding: 5vh 5vw;}
     #que-es-IH h2{font-size: 2.5rem;}
     span.chip{padding: 0;}
     .encabezado, .info-text{width: unset; padding: 2vh 0;}
 
     .dados{width: 160px; top: 0; left: 0; transform: translate(75%, -50%);}
     .row-cards{flex-direction: column;}
-    #como-jugar .info-card{margin-left: unset; margin-top: -60px; width: 100%;}
+    #como-jugar .info-card{margin-left: unset; margin-top: -100px; width: 100%;}
+    #como-jugar .info-card:first-child{margin-top: 0;}
     #como-jugar h2{padding-bottom: 4rem; font-size: 2.5rem;}
     .conclusion-text{line-height: 150%; text-align: center; margin: 2rem auto; width: 80%;}
 
@@ -317,3 +343,24 @@ footer p{font-size: 16px;}
 .delay2{transition-delay: 400ms;}
 .delay3{transition-delay: 600ms;}
 .delay4{transition-delay: 800ms;}
+
+.visualizador.drag-over {
+  background-color: rgba(0, 150, 255, 0.1);
+  border: 2px dashed #0095ff;
+}
+
+.card-draggable.dragging {
+  opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+  .card-draggable {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
