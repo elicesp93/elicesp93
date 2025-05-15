@@ -3,41 +3,26 @@ const cards = document.querySelectorAll('.row-cards .info-card');
 
 cards.forEach((card) => {
   card.addEventListener('click', () => {
-    // Get the card number from its ID (e.g., "info-card-1" -> 1)
+    // Detectar el número de la tarjeta (e.g., "info-card-1" -> 1)
     const cardNumber = parseInt(card.id.split('-').pop());
-    console.log('\n=== Card Clicked: Card ' + cardNumber + ' ===');
     
-    // Calculate z-index for each card based on the clicked card
+    // Calcular el z-index para cada tarjeta basado en la tarjeta clicada
     cards.forEach((c) => {
       const currentCardNumber = parseInt(c.id.split('-').pop());
       let zIndex;
    
       if (currentCardNumber === cardNumber) {
-        zIndex = 10; // Clicked card
+        zIndex = 10;
       } else if (currentCardNumber < cardNumber) {
-        // Cards before the clicked card
         zIndex = 10 - (cardNumber - currentCardNumber);
       } else {
-        // Cards after the clicked card
         zIndex = 10 - (currentCardNumber - cardNumber);
       }
       
-      // Ensure minimum z-index of 6
       zIndex = Math.max(6, zIndex);
       
-      const oldZIndex = c.style.zIndex;
       c.style.zIndex = zIndex;
-      console.log(`Card ${currentCardNumber}: z-index changed from ${oldZIndex} to ${zIndex}`);
     });
-
-    // Log the final z-index distribution
-    console.log('\nZ-Index Distribution:');
-    console.log('-------------------');
-    cards.forEach((c) => {
-      const currentCardNumber = parseInt(c.id.split('-').pop());
-      console.log(`Card ${currentCardNumber}: z-index ${c.style.zIndex}`);
-    });
-    console.log('-------------------\n');
   });
 });
 
@@ -83,6 +68,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const visualizadorMobile = document.querySelector('.zona-interactiva-mobile .visualizador');
   const cartas = document.querySelectorAll('.card-draggable');
   
+  // Función para el countdown
+  const startCountdown = (visualizador) => {
+    let timeLeft = 60; // 1 minute in seconds
+    const countdownElement = document.createElement('div');
+    countdownElement.className = 'countdown-timer timer';
+    countdownElement.textContent = '01:00';
+    
+    // Eliminar Timer / cuenta atrás anterior
+    const existingTimer = visualizador.querySelector('.timer');
+    if (existingTimer) {
+      existingTimer.remove();
+    }
+    
+    visualizador.appendChild(countdownElement);
+    
+    const timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      
+      if (timeLeft <= 10) {
+        countdownElement.classList.add('warning');
+      }
+      
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        countdownElement.textContent = 'TIEMPO';
+        countdownElement.classList.remove('warning');
+        countdownElement.classList.add('finished');
+      }
+      timeLeft--;
+    }, 1000);
+  };
+
   // Función compartida para mostrar el contenido
   const mostrarContenido = (tipo) => {
     // Determinar qué visualizador usar basado en el tamaño de pantalla
@@ -106,8 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         targetVisualizador.innerHTML = content;
         targetVisualizador.style.display = 'flex';
+        startCountdown(targetVisualizador);
       } else {
         targetVisualizador.innerHTML = '<p>No hay frases de insights disponibles.</p>';
+        startCountdown(targetVisualizador);
       }
     } else if (tipo === 'retos') {
       // Combinar todos los retos de todas las categorías
@@ -131,35 +152,45 @@ document.addEventListener('DOMContentLoaded', () => {
         
         targetVisualizador.innerHTML = content;
         targetVisualizador.style.display = 'flex';
+        startCountdown(targetVisualizador);
       } else {
         targetVisualizador.innerHTML = '<p>No hay frases de retos disponibles.</p>';
+        startCountdown(targetVisualizador);
       }
     } else {
       targetVisualizador.innerHTML = `<p>Tipo desconocido: "${tipo}"</p>`;
+      startCountdown(targetVisualizador);
     }
   };
   
   // Permitir soltar sobre el visualizador (solo para desktop)
-  zonaInteractiva.addEventListener('dragover', e => {
-    e.preventDefault();
-    zonaInteractiva.classList.add('drag-over');
-  });
-  
-  zonaInteractiva.addEventListener('dragleave', () => {
-    zonaInteractiva.classList.remove('drag-over');
-  });
-  
-  // Al soltar, mostrar frase correspondiente (solo para desktop)
-  zonaInteractiva.addEventListener('drop', e => {
-    e.preventDefault();
-    zonaInteractiva.classList.remove('drag-over');
+  if (visualizador) {
+    visualizador.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      visualizador.classList.add('drag-over');
+    });
     
-    const tipo = e.dataTransfer.getData('text/plain');
-    mostrarContenido(tipo);
-  });
+    visualizador.addEventListener('dragleave', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      visualizador.classList.remove('drag-over');
+    });
+    
+    visualizador.addEventListener('drop', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      visualizador.classList.remove('drag-over');
+      
+      const tipo = e.dataTransfer.getData('text/plain');
+      if (tipo) {
+        mostrarContenido(tipo);
+      }
+    });
+  }
   
   // Asignar tipo de carta al arrastrar y manejar clicks
-  cartas.forEach((card, index) => {
+  cartas.forEach((card) => {
     // Determinar el tipo basado en la clase del contenedor padre
     const parentElement = card.closest('.mazo');
     let tipo = '';
@@ -172,8 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para manejar la interacción con la carta
     const handleCardInteraction = (event) => {
-      event.preventDefault(); // Prevent default behavior
-      event.stopPropagation(); // Stop event bubbling
+      event.preventDefault();
+      event.stopPropagation();
       
       if (!jsonCargado) {
         return;
@@ -209,33 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
       
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
+        if (visualizador) {
+          visualizador.classList.remove('drag-over');
+        }
       });
     } else {
       card.draggable = false;
     }
   });
 });
-
-// Añadir estilos de ayuda visual en caso de que no estén en tu CSS
-const style = document.createElement('style');
-style.textContent = `
-  .visualizador.drag-over {
-    background-color: rgba(0, 150, 255, 0.1);
-    border: 2px dashed #0095ff;
-  }
-  .card-draggable.dragging {
-    opacity: 0.7;
-  }
-  @media (max-width: 900px) {
-    .card-draggable {
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-  }
-`;
-document.head.appendChild(style);
