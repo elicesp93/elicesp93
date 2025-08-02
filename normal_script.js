@@ -233,7 +233,20 @@ class NormalGameRules {
         if (this.players[this.currentPlayer].skipped) {
             console.log(`⏭️ Jugador ${this.currentPlayer + 1} está saltado, saltando turno`);
             this.players[this.currentPlayer].skipped = false;
-            this.endTurn();
+            
+            // ✅ CORREGIDO: Evitar llamada recursiva problemática
+            // En su lugar, cambiar directamente al siguiente jugador
+            this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
+            this.turn++;
+            
+            // ✅ CORREGIDO: Verificar si el nuevo jugador también está saltado
+            if (this.players[this.currentPlayer].skipped) {
+                console.log(`⏭️ Jugador ${this.currentPlayer + 1} también está saltado, continuando...`);
+                return this.endTurn(); // Llamada recursiva solo si es necesario
+            }
+            
+            // ✅ CORREGIDO: Iniciar el turno del nuevo jugador
+            this.startTurn();
             return true;
         }
 
