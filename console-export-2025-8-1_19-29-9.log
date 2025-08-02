@@ -1,0 +1,915 @@
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 2, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: De tal palo, tal astilla (doble-accion) - Índice: 2 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+⚙️ HUMANO OPCIONES DE JUEGO: De tal palo, tal astilla (doble-accion) - Índice: 2 human_script.js:92:17
+🔍 [DEBUG] showPlayOptions - Carta: De tal palo, tal astilla, Categoría: doble-accion, Tipo: palo human_script.js:93:17
+🔄 [DEBUG] showPlayOptions - Ejecutando showProtectionOrStealModal para doble-accion human_script.js:103:21
+🔄 HUMANO MOSTRANDO OPCIONES DOBLE ACCIÓN: De tal palo, tal astilla - Índice: 2 human_script.js:477:17
+🔍 [DEBUG] showProtectionOrStealModal - Carta: De tal palo, tal astilla, Target: lanza, Índice: 2 human_script.js:478:17
+🔍 [DEBUG] showProtectionOrStealModal - Puede proteger: true, Puede robar: false human_script.js:490:17
+🔍 [DEBUG] showProtectionOrStealModal - Jugadores con equipamiento: 0 human_script.js:491:17
+🔍 [DEBUG] showProtectionOrStealModal - hasEquipment: true, equipment[lanza]: Lanza human_script.js:492:17
+🛡️ [DEBUG] showProtectionOrStealModal - Opción PROTEGER seleccionada human_script.js:524:21
+🔍 [DEBUG] showProtectionOrStealModal - Llamando protectEquipment(lanza) human_script.js:525:21
+🛡️ [DEBUG] protectEquipment INICIADO - equipmentType: lanza, currentCardIndex: 2 human_script.js:674:17
+🔍 [DEBUG] protectEquipment - Equipamiento encontrado: Lanza human_script.js:678:21
+[DEBUG] protectEquipment HUMANO: Protección aplicada: De tal palo, tal astilla sobre lanza. Mano antes: 4 cartas, Mano después: 3 cartas human_script.js:683:25
+🛡️ CARTA DE DOBLE ACCIÓN EQUIPADA COMO PROTECCIÓN: De tal palo, tal astilla sobre Lanza human_script.js:687:25
+🔍 [DEBUG] protectEquipment - Carta equipada como protección: De tal palo, tal astilla human_script.js:688:25
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔄 MODO AI: Finalizando turno automáticamente después de proteger con doble acción human_script.js:706:25
+✅ [DEBUG] protectEquipment COMPLETADO - hasPlayed=true, currentCardIndex=undefined human_script.js:725:17
+🔍 [DEBUG] showProtectionOrStealModal - protectEquipment completado human_script.js:527:21
+🔍 [DEBUG] showProtectionOrStealModal - Estado después de proteger: hasPlayed=true, currentCardIndex=undefined human_script.js:535:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 2 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 7 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 31 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 2 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 2 robando "Rocín". Mano antes: 3 cartas, mazo: 31 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 2 robó "Rocín". Mano después: 4 cartas, mazo: 30 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Bacía de barbero = valor 80 aiplayer_script.js:79:21
+🤖 IA: Yelmo = valor 100 aiplayer_script.js:79:21
+🤖 IA: Rocín = valor 10 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Yelmo (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Yelmo (complemento) - Índice: 2 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Yelmo (complemento) - Índice: 2 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Yelmo" como yelmo. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Yelmo" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Yelmo removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Yelmo aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 8 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 30 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 2 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "Princesa Micomicona". Mano antes: 3 cartas, mazo: 30 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "Princesa Micomicona". Mano después: 4 cartas, mazo: 29 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Yelmo = valor 100 aiplayer_script.js:79:21
+🤖 IA: Cuchicheos de ventero = valor 70 aiplayer_script.js:79:21
+🤖 IA: Pies a tierra = valor 80 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Yelmo (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Yelmo (complemento) - Índice: 0 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Yelmo (complemento) - Índice: 0 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Yelmo" como yelmo. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Yelmo" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Yelmo removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Yelmo aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 9 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 29 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 2 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Yelmo". Mano antes: 3 cartas, mazo: 29 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Yelmo". Mano después: 4 cartas, mazo: 28 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA: Flaqueza y mala traza = valor 80 aiplayer_script.js:79:21
+🤖 IA: Yelmo = valor 100 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Yelmo (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Yelmo (complemento) - Índice: 3 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Yelmo (complemento) - Índice: 3 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Yelmo" como yelmo. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Yelmo" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Yelmo removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Yelmo aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+📊 CONTEO DE CARTAS (Turno Humano): script_modular.js:678:17
+  📋 En manos: 12 cartas script_modular.js:679:17
+  🛡️ Equipadas: 10 cartas script_modular.js:680:17
+  🃏 En mazo: 28 cartas script_modular.js:681:17
+  🗑️ En descarte: 2 cartas script_modular.js:682:17
+  📈 TOTAL: 52/52 cartas script_modular.js:683:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+[DEBUG] drawCard: Jugador 1 robando "Rocín". Mano antes: 3 cartas, mazo: 28 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 1 robó "Rocín". Mano después: 4 cartas, mazo: 27 cartas normal_script.js:165:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 5 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 1, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: Molino de viento (evento) - Índice: 1 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+📤 HUMANO DESCARTANDO CARTA: Molino de viento - Índice: 1 human_script.js:49:17
+🎯 HUMANO EJECUTANDO EFECTO: Molino de viento (evento) human_script.js:127:17
+🌪️ HUMANO activó Molino de viento human_script.js:999:17
+🔄 MODO AI: Finalizando turno automáticamente después de activar molino human_script.js:1003:21
+🔄 MODO AI: Finalizando turno automáticamente después de carta sin interacción human_script.js:65:25
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 Turno de IA: Jugador 2 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 10 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 27 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 3 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 2 robando "Cuando las barbas veas cortar…". Mano antes: 3 cartas, mazo: 27 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 2 robó "Cuando las barbas veas cortar…". Mano después: 4 cartas, mazo: 26 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Bacía de barbero = valor 80 aiplayer_script.js:79:21
+🤖 IA: Rocín = valor 10 aiplayer_script.js:79:21
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Bacía de barbero (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Bacía de barbero (sabotaje) - Índice: 1 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Bacía de barbero (sabotaje) - Índice: 1 aiplayer_script.js:139:17
+🎯 IA EJECUTANDO EFECTO: Bacía de barbero (sabotaje) aiplayer_script.js:170:17
+🔍 IA handleAISelection iniciado para Bacía de barbero (tipo: bacia) aiplayer_script.js:192:17
+🤖 IA ATACANDO AL MÁS FUERTE: Jugador 3 (Bacía de barbero) aiplayer_script.js:201:25
+🎯 IA PROCESANDO SELECCIÓN: Bacía de barbero contra Jugador 3 aiplayer_script.js:252:17
+[DEBUG] removeEquipment: Quitando yelmo de Jugador 3. Equipamiento antes: {"id":"yelmo-3","name":"Yelmo","type":"yelmo","category":"complemento","target":null} normal_script.js:264:17
+🗑️ Equipamiento removido: Yelmo del Jugador 3 normal_script.js:269:17
+[DEBUG] removeEquipment: Yelmo añadido al descarte. Descarte: 4 cartas normal_script.js:270:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=1, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=1, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 2, Índice: 1, Carta: "Bacía de barbero", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Bacía de barbero" añadida al descarte. Mano después: 3 cartas, Descarte: 5 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Bacía de barbero: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 9 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 26 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 5 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "Duelo con vizcaíno". Mano antes: 3 cartas, mazo: 26 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "Duelo con vizcaíno". Mano después: 4 cartas, mazo: 25 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuchicheos de ventero = valor 70 aiplayer_script.js:79:21
+🤖 IA: Pies a tierra = valor 80 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: Duelo con vizcaíno = valor 80 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Pies a tierra (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Pies a tierra (sabotaje) - Índice: 1 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Pies a tierra (sabotaje) - Índice: 1 aiplayer_script.js:139:17
+🎯 IA EJECUTANDO EFECTO: Pies a tierra (sabotaje) aiplayer_script.js:170:17
+🔍 IA handleAISelection iniciado para Pies a tierra (tipo: pies) aiplayer_script.js:192:17
+🤖 IA ATACANDO AL MÁS FUERTE: Jugador 2 (Pies a tierra) aiplayer_script.js:201:25
+🎯 IA PROCESANDO SELECCIÓN: Pies a tierra contra Jugador 2 aiplayer_script.js:252:17
+[DEBUG] removeEquipment: Quitando escudero de Jugador 2. Equipamiento antes: {"id":"escudero-4","name":"Escudero","type":"escudero","category":"complemento","target":null} normal_script.js:264:17
+🗑️ Equipamiento removido: Escudero del Jugador 2 normal_script.js:269:17
+[DEBUG] removeEquipment: Escudero añadido al descarte. Descarte: 6 cartas normal_script.js:270:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=1, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=1, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 3, Índice: 1, Carta: "Pies a tierra", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Pies a tierra" añadida al descarte. Mano después: 3 cartas, Descarte: 7 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Pies a tierra: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 8 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 25 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 7 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Oferta de ínsula". Mano antes: 3 cartas, mazo: 25 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Oferta de ínsula". Mano después: 4 cartas, mazo: 24 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA: Flaqueza y mala traza = valor 80 aiplayer_script.js:79:21
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Flaqueza y mala traza (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Flaqueza y mala traza (sabotaje) - Índice: 2 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Flaqueza y mala traza (sabotaje) - Índice: 2 aiplayer_script.js:139:17
+🎯 IA EJECUTANDO EFECTO: Flaqueza y mala traza (sabotaje) aiplayer_script.js:170:17
+🔍 IA handleAISelection iniciado para Flaqueza y mala traza (tipo: flaqueza) aiplayer_script.js:192:17
+🤖 IA ATACANDO AL MÁS FUERTE: Jugador 2 (Flaqueza y mala traza) aiplayer_script.js:201:25
+🎯 IA PROCESANDO SELECCIÓN: Flaqueza y mala traza contra Jugador 2 aiplayer_script.js:252:17
+[DEBUG] removeEquipment: Quitando rocin de Jugador 2. Equipamiento antes: {"id":"rocin-2","name":"Rocín","type":"rocin","category":"complemento","target":null} normal_script.js:264:17
+🗑️ Equipamiento removido: Rocín del Jugador 2 normal_script.js:269:17
+[DEBUG] removeEquipment: Rocín añadido al descarte. Descarte: 8 cartas normal_script.js:270:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=2, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=2, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 4, Índice: 2, Carta: "Flaqueza y mala traza", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Flaqueza y mala traza" añadida al descarte. Mano después: 3 cartas, Descarte: 9 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Flaqueza y mala traza: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🌪️ Molino activo para jugador 1, turnos restantes: 1 normal_script.js:201:21
+🌪️ Molino terminado normal_script.js:204:25
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+📊 CONTEO DE CARTAS (Turno Humano): script_modular.js:678:17
+  📋 En manos: 12 cartas script_modular.js:679:17
+  🛡️ Equipadas: 7 cartas script_modular.js:680:17
+  🃏 En mazo: 24 cartas script_modular.js:681:17
+  🗑️ En descarte: 9 cartas script_modular.js:682:17
+  📈 TOTAL: 52/52 cartas script_modular.js:683:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+[DEBUG] drawCard: Jugador 1 robando "Escudero". Mano antes: 3 cartas, mazo: 24 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 1 robó "Escudero". Mano después: 4 cartas, mazo: 23 cartas normal_script.js:165:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 5 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 2, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: Rocín (complemento) - Índice: 2 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+⚙️ HUMANO OPCIONES DE JUEGO: Rocín (complemento) - Índice: 2 human_script.js:92:17
+🔍 [DEBUG] showPlayOptions - Carta: Rocín, Categoría: complemento, Tipo: rocin human_script.js:93:17
+🔧 [DEBUG] showPlayOptions - Ejecutando addEquipment para complemento human_script.js:96:21
+[DEBUG] addEquipment HUMANO: Equipando "Rocín" como rocin. Mano antes: 4 cartas human_script.js:173:21
+[DEBUG] addEquipment HUMANO: "Rocín" removida de la mano. Mano después: 3 cartas human_script.js:176:21
+✅ CARTA EQUIPADA: Rocín removida de la mano human_script.js:179:25
+🔧 HUMANO equipó: Rocín human_script.js:193:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔄 MODO AI: Finalizando turno automáticamente después de equipar human_script.js:214:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 2 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 8 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 23 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 9 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 2 robando "Yelmo". Mano antes: 3 cartas, mazo: 23 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 2 robó "Yelmo". Mano después: 4 cartas, mazo: 22 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Rocín = valor 100 aiplayer_script.js:79:21
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Yelmo = valor 10 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Rocín (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Rocín (complemento) - Índice: 1 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Rocín (complemento) - Índice: 1 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Rocín" como rocin. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Rocín" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Rocín removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Rocín aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 9 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 22 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 9 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "A caballo regalado…". Mano antes: 3 cartas, mazo: 22 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "A caballo regalado…". Mano después: 4 cartas, mazo: 21 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuchicheos de ventero = valor 70 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: Duelo con vizcaíno = valor 80 aiplayer_script.js:79:21
+🤖 IA: A caballo regalado… = valor 60 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Duelo con vizcaíno (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Duelo con vizcaíno (sabotaje) - Índice: 2 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Duelo con vizcaíno (sabotaje) - Índice: 2 aiplayer_script.js:139:17
+🎯 IA EJECUTANDO EFECTO: Duelo con vizcaíno (sabotaje) aiplayer_script.js:170:17
+🔍 IA handleAISelection iniciado para Duelo con vizcaíno (tipo: duelo) aiplayer_script.js:192:17
+🤖 IA ATACANDO AL MÁS FUERTE: Jugador 1 (Duelo con vizcaíno) aiplayer_script.js:201:25
+🎯 IA PROCESANDO SELECCIÓN: Duelo con vizcaíno contra Jugador 1 aiplayer_script.js:252:17
+🛡️ Equipamiento protegido: lanza del Jugador 1 normal_script.js:249:21
+🗑️ PROTECCIÓN CONSUMIDA: De tal palo, tal astilla va al descarte normal_script.js:255:25
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=2, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=2, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 3, Índice: 2, Carta: "Duelo con vizcaíno", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Duelo con vizcaíno" añadida al descarte. Mano después: 3 cartas, Descarte: 11 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Duelo con vizcaíno: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 8 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 21 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 11 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Lanza". Mano antes: 3 cartas, mazo: 21 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Lanza". Mano después: 4 cartas, mazo: 20 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Lanza = valor 100 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Lanza (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Lanza (complemento) - Índice: 3 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Lanza (complemento) - Índice: 3 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Lanza" como lanza. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Lanza" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Lanza removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Lanza aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+📊 CONTEO DE CARTAS (Turno Humano): script_modular.js:678:17
+  📋 En manos: 12 cartas script_modular.js:679:17
+  🛡️ Equipadas: 9 cartas script_modular.js:680:17
+  🃏 En mazo: 20 cartas script_modular.js:681:17
+  🗑️ En descarte: 11 cartas script_modular.js:682:17
+  📈 TOTAL: 52/52 cartas script_modular.js:683:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+[DEBUG] drawCard: Jugador 1 robando "Cuchicheos de ventero". Mano antes: 3 cartas, mazo: 20 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 1 robó "Cuchicheos de ventero". Mano después: 4 cartas, mazo: 19 cartas normal_script.js:165:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 5 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 0, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: Bálsamo de Fierabrás (proteccion) - Índice: 0 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+⚙️ HUMANO OPCIONES DE JUEGO: Bálsamo de Fierabrás (proteccion) - Índice: 0 human_script.js:92:17
+🔍 [DEBUG] showPlayOptions - Carta: Bálsamo de Fierabrás, Categoría: proteccion, Tipo: balsamo human_script.js:93:17
+🛡️ [DEBUG] showPlayOptions - Ejecutando useBalsamo para proteccion human_script.js:106:21
+🛡️ [DEBUG] useBalsamo INICIADO - Índice: 0 human_script.js:568:17
+🛡️ [DEBUG] showProtectionSelectionModal INICIADO - currentCardIndex: 0 human_script.js:574:17
+🔍 [DEBUG] showProtectionSelectionModal - Equipamiento disponible para proteger: 2 human_script.js:581:17
+🔍 [DEBUG] showProtectionSelectionModal - Equipamiento: rocin = Rocín human_script.js:583:21
+🔍 [DEBUG] showProtectionSelectionModal - Equipamiento: lanza = Lanza human_script.js:583:21
+[DEBUG] applyProtection HUMANO: Protección aplicada: Bálsamo de Fierabrás sobre lanza. Mano antes: 4 cartas, Mano después: 3 cartas human_script.js:632:25
+🛡️ CARTA DE PROTECCIÓN EQUIPADA: Bálsamo de Fierabrás sobre Lanza human_script.js:637:25
+🛡️ HUMANO protegió su Lanza human_script.js:640:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔄 MODO AI: Finalizando turno automáticamente después de proteger human_script.js:653:25
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 2 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 10 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 19 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 11 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 2 robando "Lanza". Mano antes: 3 cartas, mazo: 19 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 2 robó "Lanza". Mano después: 4 cartas, mazo: 18 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Yelmo = valor 10 aiplayer_script.js:79:21
+🤖 IA: Lanza = valor 100 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Lanza (valor: 100) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Lanza (complemento) - Índice: 3 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Lanza (complemento) - Índice: 3 aiplayer_script.js:139:17
+[DEBUG] addEquipment IA: Equipando "Lanza" como lanza. Mano antes: 4 cartas aiplayer_script.js:316:21
+[DEBUG] addEquipment IA: "Lanza" removida de la mano. Mano después: 3 cartas aiplayer_script.js:319:21
+✅ CARTA EQUIPADA: Lanza removida de la mano aiplayer_script.js:320:21
+🔧 IA equipó: Lanza aiplayer_script.js:328:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:348:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 11 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 18 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 11 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "Bálsamo de Fierabrás". Mano antes: 3 cartas, mazo: 18 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "Bálsamo de Fierabrás". Mano después: 4 cartas, mazo: 17 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuchicheos de ventero = valor 70 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: A caballo regalado… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Bálsamo de Fierabrás = valor 80 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Bálsamo de Fierabrás (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Bálsamo de Fierabrás (proteccion) - Índice: 3 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Bálsamo de Fierabrás (proteccion) - Índice: 3 aiplayer_script.js:139:17
+🛡️ IA usando Bálsamo de Fierabrás aiplayer_script.js:423:17
+🤖 IA protegiendo estratégicamente: rocin aiplayer_script.js:442:17
+[DEBUG] applyProtection IA: Protección aplicada: Bálsamo de Fierabrás sobre rocin. Mano antes: 4 cartas, Mano después: 3 cartas aiplayer_script.js:357:25
+🛡️ CARTA DE PROTECCIÓN EQUIPADA: Bálsamo de Fierabrás sobre Rocín aiplayer_script.js:361:25
+🛡️ IA protegió su Rocín aiplayer_script.js:364:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:376:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 17 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 11 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Doncella en apuros". Mano antes: 3 cartas, mazo: 17 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Doncella en apuros". Mano después: 4 cartas, mazo: 16 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Doncella en apuros (valor: 70) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Doncella en apuros (evento) - Índice: 1 aiplayer_script.js:101:17
+📤 IA DESCARTANDO CARTA: Doncella en apuros - Índice: 1 aiplayer_script.js:115:17
+🎯 IA EJECUTANDO EFECTO: Doncella en apuros (evento) aiplayer_script.js:170:17
+🔍 DEBUG: playCardToDiscard - requiresInteraction=true, card.type=doncella aiplayer_script.js:122:17
+🔍 DEBUG: Carta requiere interacción, NO removiendo de mano aún aiplayer_script.js:131:21
+🔍 IA handleAISelection iniciado para Doncella en apuros (tipo: doncella) aiplayer_script.js:192:17
+🤖 IA RETRASANDO AL MÁS FUERTE: Jugador 2 (Doncella) aiplayer_script.js:204:25
+🎯 IA PROCESANDO SELECCIÓN: Doncella en apuros contra Jugador 2 aiplayer_script.js:252:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=1, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=1, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 4, Índice: 1, Carta: "Doncella en apuros", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Doncella en apuros" añadida al descarte. Mano después: 3 cartas, Descarte: 12 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Doncella en apuros: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+📊 CONTEO DE CARTAS (Turno Humano): script_modular.js:678:17
+  📋 En manos: 12 cartas script_modular.js:679:17
+  🛡️ Equipadas: 12 cartas script_modular.js:680:17
+  🃏 En mazo: 16 cartas script_modular.js:681:17
+  🗑️ En descarte: 12 cartas script_modular.js:682:17
+  📈 TOTAL: 52/52 cartas script_modular.js:683:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+[DEBUG] drawCard: Jugador 1 robando "Cuando las barbas veas cortar…". Mano antes: 3 cartas, mazo: 16 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 1 robó "Cuando las barbas veas cortar…". Mano después: 4 cartas, mazo: 15 cartas normal_script.js:165:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 5 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 3, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: Cuando las barbas veas cortar… (doble-accion) - Índice: 3 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+⚙️ HUMANO OPCIONES DE JUEGO: Cuando las barbas veas cortar… (doble-accion) - Índice: 3 human_script.js:92:17
+🔍 [DEBUG] showPlayOptions - Carta: Cuando las barbas veas cortar…, Categoría: doble-accion, Tipo: barbas human_script.js:93:17
+🔄 [DEBUG] showPlayOptions - Ejecutando showProtectionOrStealModal para doble-accion human_script.js:103:21
+🔄 HUMANO MOSTRANDO OPCIONES DOBLE ACCIÓN: Cuando las barbas veas cortar… - Índice: 3 human_script.js:477:17
+🔍 [DEBUG] showProtectionOrStealModal - Carta: Cuando las barbas veas cortar…, Target: yelmo, Índice: 3 human_script.js:478:17
+🔍 [DEBUG] showProtectionOrStealModal - Puede proteger: false, Puede robar: true human_script.js:490:17
+🔍 [DEBUG] showProtectionOrStealModal - Jugadores con equipamiento: 2 human_script.js:491:17
+🔍 [DEBUG] showProtectionOrStealModal - hasEquipment: false, equipment[yelmo]: null human_script.js:492:17
+🔄 [DEBUG] showProtectionOrStealModal - Opción ROBAR seleccionada human_script.js:547:21
+👥 HUMANO MOSTRANDO SELECCIÓN DE JUGADOR: Cuando las barbas veas cortar… - Índice: 3 human_script.js:241:17
+👥 HUMANO MOSTRANDO SELECCIÓN DE JUGADOR: Modo de juego: ai human_script.js:242:17
+❌ ERROR: Elemento player-select-modal no encontrado en el DOM human_script.js:247:21
+❌ ERROR: Creando modal dinámicamente human_script.js:248:21
+✅ Modal de selección de jugador creado dinámicamente human_script.js:304:21
+[DEBUG] Número de jugadores en la partida:  4 human_script.js:305:21
+[DEBUG] Número de botones de jugador en el modal:  3 human_script.js:306:21
+🎯 HUMANO HANDLE PLAYER SELECTION: Jugador 2 seleccionado human_script.js:371:17
+🔄 HUMANO Ejecutando robo directo: yelmo del Jugador 2 human_script.js:377:21
+🔄 HUMANO INICIANDO ROBO: yelmo del Jugador 2 human_script.js:732:17
+[DEBUG] stealEquipment HUMANO: Robando "Yelmo" del Jugador 2. Equipamiento antes: {"id":"yelmo-4","name":"Yelmo","type":"yelmo","category":"complemento","target":null} human_script.js:781:21
+✅ HUMANO EQUIPAMIENTO ROBADO: Yelmo del Jugador 2 human_script.js:785:21
+[DEBUG] stealEquipment HUMANO: "Yelmo" equipado automáticamente al Jugador 1 human_script.js:789:25
+🔧 HUMANO EQUIPANDO AUTOMÁTICAMENTE: Yelmo human_script.js:790:25
+🗑️ DISCARD_CURRENT_CARD INICIADO - Jugador: 1, Índice: 3 human_script.js:1656:17
+🔍 [DEBUG] discardCurrentCard - Estado antes: hasPlayed=false, gameMode=ai, librosMode=false human_script.js:1657:17
+[DEBUG] discardCurrentCard HUMANO: Jugador 1, Índice: 3, Carta: "Cuando las barbas veas cortar…", Mano antes: 4 cartas human_script.js:1671:21
+[DEBUG] discardCurrentCard HUMANO: "Cuando las barbas veas cortar…" añadida al descarte. Mano después: 3 cartas, Descarte: 13 cartas human_script.js:1676:21
+🗑️ HUMANO DESCARTÓ CARTA: Cuando las barbas veas cortar… human_script.js:1677:21
+🗑️ DISCARD_CURRENT_CARD - Estado después de descartar: hasPlayed=true, gameMode=ai, librosMode=false human_script.js:1683:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔄 MODO AI: Finalizando turno automáticamente después de descartar carta human_script.js:1692:25
+✅ [DEBUG] discardCurrentCard COMPLETADO - hasPlayed=true, currentCardIndex=undefined human_script.js:1720:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔄 MODO AI: Finalizando turno automáticamente después de robar human_script.js:823:29
+🔄 MODO AI: Ejecutando endTurn() desde discardCurrentCard human_script.js:1694:29
+⏭️ Jugador 2 está saltado, saltando turno normal_script.js:194:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 15 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 13 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "De tal palo, tal astilla". Mano antes: 3 cartas, mazo: 15 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "De tal palo, tal astilla". Mano después: 4 cartas, mazo: 14 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuchicheos de ventero = valor 70 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: A caballo regalado… = valor 60 aiplayer_script.js:79:21
+🤖 IA: De tal palo, tal astilla = valor 60 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Cuchicheos de ventero (valor: 70) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Cuchicheos de ventero (evento) - Índice: 0 aiplayer_script.js:101:17
+📤 IA DESCARTANDO CARTA: Cuchicheos de ventero - Índice: 0 aiplayer_script.js:115:17
+🎯 IA EJECUTANDO EFECTO: Cuchicheos de ventero (evento) aiplayer_script.js:170:17
+🔍 DEBUG: playCardToDiscard - requiresInteraction=true, card.type=cuchicheos aiplayer_script.js:122:17
+🔍 DEBUG: Carta requiere interacción, NO removiendo de mano aún aiplayer_script.js:131:21
+🔍 IA handleAISelection iniciado para Cuchicheos de ventero (tipo: cuchicheos) aiplayer_script.js:192:17
+🎯 IA INTERCAMBIANDO CON EL MÁS DÉBIL: Jugador 2 (Cuchicheos) aiplayer_script.js:210:25
+🎯 IA PROCESANDO SELECCIÓN: Cuchicheos de ventero contra Jugador 2 aiplayer_script.js:252:17
+🤖 IA ejecutando intercambio automático con Jugador 2 aiplayer_script.js:671:17
+🤖 IA: Seleccionando cartas para intercambio inteligente aiplayer_script.js:679:17
+🤖 IA: Intercambiando "A caballo regalado…" (valor: 60) por "Yelmo" (valor: 100) aiplayer_script.js:717:17
+🗑️ IA: Carta "Cuchicheos de ventero" descartada después del intercambio aiplayer_script.js:726:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:741:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 14 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 14 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Princesa Micomicona". Mano antes: 3 cartas, mazo: 14 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Princesa Micomicona". Mano después: 4 cartas, mazo: 13 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Doncella en apuros = valor 70 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Doncella en apuros (valor: 70) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Doncella en apuros (evento) - Índice: 2 aiplayer_script.js:101:17
+📤 IA DESCARTANDO CARTA: Doncella en apuros - Índice: 2 aiplayer_script.js:115:17
+🎯 IA EJECUTANDO EFECTO: Doncella en apuros (evento) aiplayer_script.js:170:17
+🔍 DEBUG: playCardToDiscard - requiresInteraction=true, card.type=doncella aiplayer_script.js:122:17
+🔍 DEBUG: Carta requiere interacción, NO removiendo de mano aún aiplayer_script.js:131:21
+🔍 IA handleAISelection iniciado para Doncella en apuros (tipo: doncella) aiplayer_script.js:192:17
+🤖 IA RETRASANDO AL MÁS FUERTE: Jugador 1 (Doncella) aiplayer_script.js:204:25
+🎯 IA PROCESANDO SELECCIÓN: Doncella en apuros contra Jugador 1 aiplayer_script.js:252:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=2, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=2, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 4, Índice: 2, Carta: "Doncella en apuros", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Doncella en apuros" añadida al descarte. Mano después: 3 cartas, Descarte: 15 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Doncella en apuros: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+⏭️ Jugador 1 está saltado, saltando turno normal_script.js:194:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 2 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 13 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 15 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 2 robando "Lanza". Mano antes: 3 cartas, mazo: 13 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 2 robó "Lanza". Mano después: 4 cartas, mazo: 12 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: A caballo regalado… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Lanza = valor 10 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Oferta de ínsula (valor: 60) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Oferta de ínsula (doble-accion) - Índice: 0 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Oferta de ínsula (doble-accion) - Índice: 0 aiplayer_script.js:139:17
+🔄 IA manejando carta de doble-acción: Oferta de ínsula aiplayer_script.js:383:17
+🤖 IA robando estratégicamente del más fuerte: Jugador 1 aiplayer_script.js:408:21
+🔄 IA INICIANDO ROBO: lanza del Jugador 1 aiplayer_script.js:450:17
+🛡️ EQUIPAMIENTO PROTEGIDO: lanza del Jugador 1 está protegido aiplayer_script.js:454:25
+🔍 DEBUG: discardCurrentCard - currentCardIndex=0, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 2, Índice: 0, Carta: "Oferta de ínsula", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Oferta de ínsula" añadida al descarte. Mano después: 3 cartas, Descarte: 16 cartas aiplayer_script.js:891:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:468:29
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true 2 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 3 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 12 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 16 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 3 robando "Libros de caballería". Mano antes: 3 cartas, mazo: 12 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 3 robó "Libros de caballería". Mano después: 4 cartas, mazo: 11 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: Yelmo = valor 100 aiplayer_script.js:79:21
+🤖 IA: De tal palo, tal astilla = valor 60 aiplayer_script.js:79:21
+🤖 IA: Libros de caballería = valor 120 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Libros de caballería (valor: 120) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Libros de caballería (evento) - Índice: 3 aiplayer_script.js:101:17
+📤 IA DESCARTANDO CARTA: Libros de caballería - Índice: 3 aiplayer_script.js:115:17
+🎯 IA EJECUTANDO EFECTO: Libros de caballería (evento) aiplayer_script.js:170:17
+🔍 DEBUG: playCardToDiscard - requiresInteraction=true, card.type=libros aiplayer_script.js:122:17
+🔍 DEBUG: Carta requiere interacción, NO removiendo de mano aún aiplayer_script.js:131:21
+🔍 IA handleAISelection iniciado para Libros de caballería (tipo: libros) aiplayer_script.js:192:17
+📚 IA usando Libros de caballería aiplayer_script.js:243:21
+📚 IA usando Libros de caballería aiplayer_script.js:643:17
+📚 IA usó Libros de caballería - turno completado aiplayer_script.js:654:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:662:21
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true 3 script_modular.js:346:17
+🤖 El siguiente jugador es IA, ejecutando turno automáticamente script_modular.js:234:25
+🤖 Turno de IA: Jugador 4 aiplayer_script.js:21:17
+📊 CONTEO DE CARTAS (Turno IA): aiplayer_script.js:932:17
+  📋 En manos: 12 cartas aiplayer_script.js:933:17
+  🛡️ Equipadas: 12 cartas aiplayer_script.js:934:17
+  🃏 En mazo: 11 cartas aiplayer_script.js:935:17
+  🗑️ En descarte: 17 cartas aiplayer_script.js:936:17
+  📈 TOTAL: 52/52 cartas aiplayer_script.js:937:17
+🤖 IA robando carta... aiplayer_script.js:32:21
+[DEBUG] drawCard: Jugador 4 robando "Pies a tierra". Mano antes: 3 cartas, mazo: 11 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 4 robó "Pies a tierra". Mano después: 4 cartas, mazo: 10 cartas normal_script.js:165:21
+🤖 IA jugando carta... aiplayer_script.js:39:21
+🔍 IA evaluando estratégicamente las cartas... aiplayer_script.js:70:17
+🤖 IA: Cuando las barbas veas cortar… = valor 60 aiplayer_script.js:79:21
+🤖 IA: Oferta de ínsula = valor 60 aiplayer_script.js:79:21
+🤖 IA: Princesa Micomicona = valor 70 aiplayer_script.js:79:21
+🤖 IA: Pies a tierra = valor 80 aiplayer_script.js:79:21
+🤖 IA seleccionó estratégicamente: Pies a tierra (valor: 80) aiplayer_script.js:87:17
+🤖 IA JUGANDO CARTA: Pies a tierra (sabotaje) - Índice: 3 aiplayer_script.js:101:17
+⚙️ IA OPCIONES DE JUEGO: Pies a tierra (sabotaje) - Índice: 3 aiplayer_script.js:139:17
+🎯 IA EJECUTANDO EFECTO: Pies a tierra (sabotaje) aiplayer_script.js:170:17
+🔍 IA handleAISelection iniciado para Pies a tierra (tipo: pies) aiplayer_script.js:192:17
+🤖 IA ATACANDO AL MÁS FUERTE: Jugador 1 (Pies a tierra) aiplayer_script.js:201:25
+🎯 IA PROCESANDO SELECCIÓN: Pies a tierra contra Jugador 1 aiplayer_script.js:252:17
+🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=3, currentCard=null aiplayer_script.js:285:21
+🔍 DEBUG: discardCurrentCard - currentCardIndex=3, hand.length=4 aiplayer_script.js:874:17
+[DEBUG] discardCurrentCard IA: Jugador 4, Índice: 3, Carta: "Pies a tierra", Mano antes: 4 cartas aiplayer_script.js:886:21
+[DEBUG] discardCurrentCard IA: "Pies a tierra" añadida al descarte. Mano después: 3 cartas, Descarte: 18 cartas aiplayer_script.js:891:21
+🔍 DEBUG: Estado después de procesar Pies a tierra: hasDrawn=true, hasPlayed=true, aiSelectionHandled=false aiplayer_script.js:292:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:299:25
+🤖 IA: Turno completado, listo para finalizar aiplayer_script.js:217:25
+🔍 DEBUG: Condiciones para terminar turno: hasDrawn=true, librosMode=false, hasPlayed=true, aiSelectionHandled=false, isAI=true aiplayer_script.js:51:17
+🤖 IA terminando turno... aiplayer_script.js:54:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+📊 CONTEO DE CARTAS (Turno Humano): script_modular.js:678:17
+  📋 En manos: 12 cartas script_modular.js:679:17
+  🛡️ Equipadas: 12 cartas script_modular.js:680:17
+  🃏 En mazo: 10 cartas script_modular.js:681:17
+  🗑️ En descarte: 18 cartas script_modular.js:682:17
+  📈 TOTAL: 52/52 cartas script_modular.js:683:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false script_modular.js:346:17
+[DEBUG] drawCard: Jugador 1 robando "Yelmo". Mano antes: 3 cartas, mazo: 10 cartas normal_script.js:159:21
+[DEBUG] drawCard: Jugador 1 robó "Yelmo". Mano después: 4 cartas, mazo: 9 cartas normal_script.js:165:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 5 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 2 script_modular.js:346:17
+🔍 [DEBUG] playCard INICIADO - Índice: 1, Fase: play, hasPlayed: false, librosMode: false human_script.js:19:17
+🎯 HUMANO JUGANDO CARTA: Escudero (complemento) - Índice: 1 human_script.js:34:17
+🔍 [DEBUG] playCard - Mano antes de jugar: 4 cartas human_script.js:35:17
+⚙️ HUMANO OPCIONES DE JUEGO: Escudero (complemento) - Índice: 1 human_script.js:92:17
+🔍 [DEBUG] showPlayOptions - Carta: Escudero, Categoría: complemento, Tipo: escudero human_script.js:93:17
+🔧 [DEBUG] showPlayOptions - Ejecutando addEquipment para complemento human_script.js:96:21
+[DEBUG] addEquipment HUMANO: Equipando "Escudero" como escudero. Mano antes: 4 cartas human_script.js:173:21
+[DEBUG] addEquipment HUMANO: "Escudero" removida de la mano. Mano después: 3 cartas human_script.js:176:21
+✅ CARTA EQUIPADA: Escudero removida de la mano human_script.js:179:25
+🔧 HUMANO equipó: Escudero human_script.js:193:21
+🔍 Jugador 1, gameMode: ai, playerCount: 4, isAI: false 4 script_modular.js:346:17
+🔍 Jugador 2, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 3, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🔍 Jugador 4, gameMode: ai, playerCount: 4, isAI: true script_modular.js:346:17
+🏆 ¡VICTORIA! Jugador 1 ha reunido todos los complementos human_script.js:205:21
+🏆 ¡VICTORIA! Jugador 1 ha ganado la partida script_modular.js:696:17
