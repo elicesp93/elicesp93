@@ -2,6 +2,8 @@
 // NORMAL_SCRIPT.JS - FUNCIONES GENÉRICAS
 // ========================================
 
+console.log('📋 normal_script.js cargado');
+
 class NormalGameRules {
     constructor() {
         this.players = [
@@ -23,6 +25,7 @@ class NormalGameRules {
         this.gameMode = null;
         this.aiSelectionHandled = false;
         this.librosMode = false;
+        this.turnInProgress = false; // ✅ NUEVO: Protección del turno
         
         this.initializeDeck();
     }
@@ -181,14 +184,51 @@ class NormalGameRules {
         }
     }
 
+    // ✅ NUEVO: Método para validar que solo el jugador actual pueda jugar
+    validatePlayerAction(playerIndex) {
+        console.log(`🔍 [DEBUG] validatePlayerAction - turnInProgress: ${this.turnInProgress}, playerIndex: ${playerIndex}, currentPlayer: ${this.currentPlayer}`);
+        if (this.turnInProgress && playerIndex !== this.currentPlayer) {
+            console.log(`❌ ACCIÓN BLOQUEADA: Jugador ${playerIndex + 1} intentó jugar durante el turno del Jugador ${this.currentPlayer + 1}`);
+            return false;
+        }
+        console.log(`✅ ACCIÓN PERMITIDA: Jugador ${playerIndex + 1} puede jugar`);
+        return true;
+    }
+
+    // ✅ NUEVO: Método para iniciar un turno
+    startTurn() {
+        this.turnInProgress = true;
+        console.log(`🔄 TURNO INICIADO: Jugador ${this.currentPlayer + 1} - Protección activada (turnInProgress: ${this.turnInProgress})`);
+    }
+
+    // ✅ NUEVO: Método para finalizar un turno
+    finishTurn() {
+        this.turnInProgress = false;
+        console.log(`✅ TURNO FINALIZADO: Jugador ${this.currentPlayer + 1} - Protección desactivada (turnInProgress: ${this.turnInProgress})`);
+    }
+
     endTurn() {
+        console.log(`🔍 [DEBUG] endTurn INICIADO - turnInProgress: ${this.turnInProgress}, hasDrawn: ${this.hasDrawn}, hasPlayed: ${this.hasPlayed}`);
+        
         if (!this.hasDrawn || !this.hasPlayed) {
+            console.log(`❌ endTurn RECHAZADO - Condiciones no cumplidas`);
+            return false;
+        }
+
+        // ✅ NUEVO: Solo permitir endTurn si el turno está en progreso
+        if (!this.turnInProgress) {
+            console.log(`❌ END_TURN BLOQUEADO: No hay turno en progreso (turnInProgress: ${this.turnInProgress})`);
             return false;
         }
 
         const previousPlayer = this.currentPlayer;
         this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
         this.turn++;
+
+        // ✅ NUEVO: Finalizar el turno actual antes de cambiar al siguiente
+        this.finishTurn();
+
+        console.log(`🔄 TURNO CAMBIADO: Jugador ${previousPlayer + 1} → Jugador ${this.currentPlayer + 1}`);
 
         if (this.players[this.currentPlayer].skipped) {
             console.log(`⏭️ Jugador ${this.currentPlayer + 1} está saltado, saltando turno`);
@@ -212,6 +252,11 @@ class NormalGameRules {
         this.hasPlayed = false;
         this.librosMode = false;
         this.aiSelectionHandled = false;
+
+        // ✅ NUEVO: Iniciar el nuevo turno
+        this.startTurn();
+
+        console.log(`✅ endTurn COMPLETADO - Nuevo turno iniciado para Jugador ${this.currentPlayer + 1}`);
 
         return true;
     }
@@ -361,6 +406,7 @@ class NormalGameRules {
         this.hasPlayed = false;
         this.aiSelectionHandled = false;
         this.librosMode = false;
+        this.turnInProgress = false; // ✅ NUEVO: Protección del turno
         
         // Restaurar playerCount y gameMode
         this.playerCount = currentPlayerCount;

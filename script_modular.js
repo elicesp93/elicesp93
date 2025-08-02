@@ -2,25 +2,39 @@
 // SCRIPT_MODULAR.JS - INTEGRACIÓN PRINCIPAL
 // ========================================
 
+console.log('🚀 script_modular.js cargado');
+
 class CaballeroHidalgoGame {
     constructor() {
         console.log('🏗️ Inicializando CaballeroHidalgoGame...');
         
-        // Inicializar las reglas base
-        this.gameRules = new NormalGameRules();
-        
-        // Inicializar reglas específicas para humanos e IA
-        this.humanRules = new HumanPlayerRules(this.gameRules);
-        this.aiRules = new AIPlayerRules(this.gameRules);
-        
-        // Configurar el juego
-        this.setupEventListeners();
-        
-        // Hacer accesible globalmente
-        window.game = this;
-        
-        // Mostrar pantalla de selección de modo
-        this.showGameModeSelection();
+        try {
+            // Inicializar las reglas base
+            this.gameRules = new NormalGameRules();
+            console.log('✅ NormalGameRules inicializado');
+            
+            // Inicializar reglas específicas para humanos e IA
+            this.humanRules = new HumanPlayerRules(this.gameRules);
+            this.aiRules = new AIPlayerRules(this.gameRules);
+            console.log('✅ HumanPlayerRules y AIPlayerRules inicializados');
+            
+            // ✅ NUEVO: Contador de turnos
+            this.turnCounter = 0;
+            
+            // Configurar el juego
+            this.setupEventListeners();
+            console.log('✅ Event listeners configurados');
+            
+            // Hacer accesible globalmente
+            window.game = this;
+            
+            // Mostrar pantalla de selección de modo
+            this.showGameModeSelection();
+            console.log('✅ Pantalla de selección de modo mostrada');
+            
+        } catch (error) {
+            console.error('❌ Error en constructor de CaballeroHidalgoGame:', error);
+        }
     }
 
     // ========================================
@@ -97,12 +111,23 @@ class CaballeroHidalgoGame {
     // ========================================
 
     showGameModeSelection() {
+        console.log('🎯 showGameModeSelection() ejecutándose...');
+        
         const gameModeSelection = document.getElementById('game-mode-selection');
         const gameContainer = document.getElementById('game-container');
         const playerCountSelection = document.getElementById('player-count-selection');
         
+        console.log('🔍 Elementos encontrados:', {
+            gameModeSelection: !!gameModeSelection,
+            gameContainer: !!gameContainer,
+            playerCountSelection: !!playerCountSelection
+        });
+        
         if (gameModeSelection) {
             gameModeSelection.style.display = 'flex';
+            console.log('✅ Pantalla de selección de modo mostrada');
+        } else {
+            console.error('❌ No se encontró game-mode-selection');
         }
         
         if (gameContainer) {
@@ -177,7 +202,14 @@ class CaballeroHidalgoGame {
             playerCountSelection.style.display = 'none';
         }
         
+        // ✅ NUEVO: Reiniciar contador de turnos
+        this.turnCounter = 0;
+        
         this.gameRules.resetGame();
+        
+        // ✅ NUEVO: Iniciar el primer turno
+        this.gameRules.startTurn();
+        
         this.updateDisplay();
         this.updateStatus("¡Nuevo juego iniciado! El Jugador 1 debe robar una carta.");
         
@@ -214,9 +246,15 @@ class CaballeroHidalgoGame {
     }
 
     endTurn() {
+        // ✅ NUEVO: Mostrar estado del turno actual antes de terminar
+        this.showTurnStatus();
+        
         const success = this.gameRules.endTurn();
         
         if (success) {
+            // ✅ CORREGIDO: Incrementar contador de turnos ANTES de actualizar la pantalla
+            this.turnCounter++;
+            
             this.updateDisplay();
             
             // ✅ NUEVO: Verificar victoria después de actualizar la pantalla
@@ -357,6 +395,78 @@ class CaballeroHidalgoGame {
         const isAI = this.gameRules.gameMode === 'ai' && playerIndex > 0 && playerIndex < this.gameRules.playerCount;
         console.log(`🔍 Jugador ${playerIndex + 1}, gameMode: ${this.gameRules.gameMode}, playerCount: ${this.gameRules.playerCount}, isAI: ${isAI}`);
         return isAI;
+    }
+
+    // ========================================
+    // GESTIÓN DE VICTORIA
+    // ========================================
+
+    handleVictory() {
+        console.log(`🏆 ¡VICTORIA! Jugador ${this.gameRules.currentPlayer + 1} ha ganado la partida`);
+        
+        // Mostrar el overlay de victoria
+        const victoryOverlay = document.getElementById('victory-overlay');
+        const victoryMessage = document.getElementById('victory-message');
+        
+        if (victoryOverlay && victoryMessage) {
+            // Personalizar el mensaje según el jugador ganador
+            const winnerName = this.isAIPlayer(this.gameRules.currentPlayer) ? 
+                `Jugador ${this.gameRules.currentPlayer + 1} (IA)` : 
+                `Jugador ${this.gameRules.currentPlayer + 1}`;
+            
+            victoryMessage.textContent = `¡${winnerName} ha reunido todos los complementos y ha derrotado al gigante!`;
+            
+            // Mostrar el overlay con animación
+            victoryOverlay.style.display = 'flex';
+            
+            // Animar el modal
+            const victoryModal = document.getElementById('victory-modal');
+            if (victoryModal) {
+                setTimeout(() => {
+                    victoryModal.style.transform = 'scale(1)';
+                }, 100);
+            }
+            
+            // Configurar event listeners para los botones
+            this.setupVictoryModalEvents();
+        } else {
+            console.error('❌ ERROR: No se encontraron elementos del modal de victoria');
+        }
+    }
+
+    setupVictoryModalEvents() {
+        // Botón "Jugar de Nuevo"
+        const replayBtn = document.getElementById('victory-replay');
+        if (replayBtn) {
+            replayBtn.onclick = () => {
+                this.hideVictoryModal();
+                this.startNewGame(true);
+            };
+        }
+        
+        // Botón "Salir al Menú"
+        const exitBtn = document.getElementById('victory-exit');
+        if (exitBtn) {
+            exitBtn.onclick = () => {
+                this.hideVictoryModal();
+                this.showGameModeSelection();
+            };
+        }
+    }
+
+    hideVictoryModal() {
+        const victoryOverlay = document.getElementById('victory-overlay');
+        const victoryModal = document.getElementById('victory-modal');
+        
+        if (victoryModal) {
+            victoryModal.style.transform = 'scale(0.8)';
+        }
+        
+        setTimeout(() => {
+            if (victoryOverlay) {
+                victoryOverlay.style.display = 'none';
+            }
+        }, 300);
     }
 
     // ========================================
@@ -741,116 +851,118 @@ class CaballeroHidalgoGame {
         let totalHandCount = 0;
         let totalEquipmentCount = 0;
         
+        // Contar cartas en manos de cada jugador
+        const handCounts = [];
         for (let i = 0; i < this.gameRules.playerCount; i++) {
             const player = this.gameRules.players[i];
-            totalHandCount += player.hand.length;
+            const handCount = player.hand.length;
+            totalHandCount += handCount;
+            handCounts.push(handCount);
+        }
+        
+        // Contar equipamientos de cada jugador
+        const equipmentCounts = [];
+        for (let i = 0; i < this.gameRules.playerCount; i++) {
+            const player = this.gameRules.players[i];
+            let playerEquipmentCount = 0;
             
             // ✅ CORREGIDO: Contar equipamientos + cartas de protección
             Object.values(player.equipment).forEach(equipment => {
                 if (equipment) {
-                    totalEquipmentCount++; // Contar el equipamiento
+                    playerEquipmentCount++; // Contar el equipamiento
                     if (equipment.protectionCard) {
-                        totalEquipmentCount++; // Contar la carta de protección
+                        playerEquipmentCount++; // Contar la carta de protección
                     }
                 }
             });
+            
+            totalEquipmentCount += playerEquipmentCount;
+            equipmentCounts.push(playerEquipmentCount);
         }
         
         const deckCount = this.gameRules.deck.length;
         const discardCount = this.gameRules.discardPile.length;
         const total = totalHandCount + totalEquipmentCount + deckCount + discardCount;
         
-        console.log(`📊 CONTEO DE CARTAS (Turno Humano):`);
-        console.log(`  📋 En manos: ${totalHandCount} cartas`);
-        console.log(`  🛡️ Equipadas: ${totalEquipmentCount} cartas`);
+        // ✅ CORREGIDO: Mostrar el número de turno actual (no el siguiente)
+        console.log(`📊 CONTEO DE CARTAS (Turno ${this.turnCounter}):`);
+        console.log(`  📈 TOTAL: ${total}/52 cartas`);
         console.log(`  🃏 En mazo: ${deckCount} cartas`);
         console.log(`  🗑️ En descarte: ${discardCount} cartas`);
-        console.log(`  📈 TOTAL: ${total}/52 cartas`);
-    }
-
-    // ✅ NUEVO: Función para forzar el turno de la IA si se ha congelado
-    forceAITurn() {
-        if (this.isAIPlayer(this.gameRules.currentPlayer)) {
-            console.log(`🔄 Forzando turno de IA para Jugador ${this.gameRules.currentPlayer + 1}`);
-            this.aiRules.playAITurn();
+        
+        // Mostrar cartas en manos de cada jugador
+        for (let i = 0; i < this.gameRules.playerCount; i++) {
+            const isAI = this.isAIPlayer(i);
+            console.log(`  📋 En manos Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}: ${handCounts[i]} cartas`);
+        }
+        
+        // Mostrar cartas equipadas de cada jugador
+        for (let i = 0; i < this.gameRules.playerCount; i++) {
+            const isAI = this.isAIPlayer(i);
+            console.log(`  🛡️ En mesa Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}: ${equipmentCounts[i]} cartas`);
         }
     }
 
-    // ✅ NUEVO: Función para manejar la victoria
-    handleVictory() {
-        console.log(`🏆 ¡VICTORIA! Jugador ${this.gameRules.currentPlayer + 1} ha ganado la partida`);
+    // ✅ NUEVO: Función para mostrar estado detallado del turno
+    showTurnStatus() {
+        const currentPlayer = this.gameRules.currentPlayer;
+        const player = this.gameRules.players[currentPlayer];
+        const isAI = this.isAIPlayer(currentPlayer);
         
-        // Actualizar el estado del juego
-        this.updateStatus(`¡Jugador ${this.gameRules.currentPlayer + 1} ha derrotado al gigante y ganado la partida!`);
+        // ✅ CORREGIDO: Mostrar el número de turno actual (no el siguiente)
+        console.log(`\n🔄 === TURNO ${this.turnCounter} ===`);
+        console.log(`👤 Jugador ${currentPlayer + 1} ${isAI ? '(IA)' : '(Humano)'}`);
+        console.log(`📋 Cartas en mano: ${player.hand.length}`);
         
-        // Mostrar modal de victoria después de un pequeño delay
-        setTimeout(() => {
-            const overlay = document.getElementById('victory-overlay');
-            const modal = document.getElementById('victory-modal');
-            const message = document.getElementById('victory-message');
+        // Mostrar cartas en mano
+        if (player.hand.length > 0) {
+            console.log(`   🃏 Cartas: ${player.hand.map(card => `"${card.name}"`).join(', ')}`);
+        }
+        
+        // Mostrar equipamiento
+        const equipment = player.equipment;
+        const equipmentList = [];
+        if (equipment.weapon) equipmentList.push(`Arma: ${equipment.weapon.name}`);
+        if (equipment.armor) equipmentList.push(`Armadura: ${equipment.armor.name}`);
+        if (equipment.mount) equipmentList.push(`Montura: ${equipment.mount.name}`);
+        if (equipment.helmet) equipmentList.push(`Yelmo: ${equipment.helmet.name}`);
+        
+        if (equipmentList.length > 0) {
+            console.log(`🛡️ Equipamiento: ${equipmentList.join(', ')}`);
+        } else {
+            console.log(`🛡️ Equipamiento: Ninguno`);
+        }
+        
+        // Mostrar estado del juego
+        console.log(`🎯 Estado: hasDrawn=${this.gameRules.hasDrawn}, hasPlayed=${this.gameRules.hasPlayed}, aiSelectionHandled=${this.gameRules.aiSelectionHandled}`);
+        
+        // ✅ NUEVO: Mostrar estado de todos los jugadores al final del turno
+        this.showAllPlayersStatus();
+    }
+
+    // ✅ NUEVO: Función para mostrar el estado de todos los jugadores
+    showAllPlayersStatus() {
+        console.log(`\n📊 === ESTADO DE TODOS LOS JUGADORES ===`);
+        
+        for (let i = 0; i < this.gameRules.playerCount; i++) {
+            const player = this.gameRules.players[i];
+            const isAI = this.isAIPlayer(i);
+            const isCurrent = i === this.gameRules.currentPlayer;
             
-            if (overlay && modal && message) {
-                // Mostrar overlay
-                overlay.style.display = 'flex';
-                setTimeout(() => {
-                    overlay.style.background = 'rgba(0, 0, 0, 0.85)';
-                    modal.style.transform = 'scale(1)';
-                }, 10);
-                
-                // Actualizar mensaje
-                message.textContent = `¡Jugador ${this.gameRules.currentPlayer + 1} ha derrotado al gigante y ganado la partida!`;
-                
-                // Bloquear interacción con el juego
-                document.body.style.overflow = 'hidden';
-                
-                // Configurar botones
-                this.setupVictoryButtons();
-            }
-        }, 500);
-    }
-
-    // ✅ NUEVO: Configurar botones del modal de victoria
-    setupVictoryButtons() {
-        const replayBtn = document.getElementById('victory-replay');
-        const exitBtn = document.getElementById('victory-exit');
-        const overlay = document.getElementById('victory-overlay');
-        const modal = document.getElementById('victory-modal');
-        
-        if (replayBtn) {
-            replayBtn.onclick = () => {
-                this.hideVictoryModal();
-                // Reiniciar juego con la misma configuración
-                this.startNewGame(true);
-            };
-        }
-        
-        if (exitBtn) {
-            exitBtn.onclick = () => {
-                this.hideVictoryModal();
-                // Volver al menú principal
-                this.showGameModeSelection();
-            };
-        }
-    }
-
-    // ✅ NUEVO: Ocultar modal de victoria
-    hideVictoryModal() {
-        const overlay = document.getElementById('victory-overlay');
-        const modal = document.getElementById('victory-modal');
-        
-        if (overlay && modal) {
-            overlay.style.background = 'rgba(0, 0, 0, 0)';
-            modal.style.transform = 'scale(0.8)';
-            
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                document.body.style.overflow = '';
-            }, 300);
+            console.log(`👤 Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}${isCurrent ? ' (ACTUAL)' : ''}: ${player.hand.length} cartas en mano`);
         }
     }
 }
 
-// Inicializar el juego cuando se carga la página
-document.addEventListener('DOMContentLoaded', () => {
-    new CaballeroHidalgoGame();
-}); 
+// ✅ NUEVO: Crear instancia del juego cuando el DOM esté listo
+console.log('🔄 script_modular.js terminado de cargar, esperando DOM...');
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOM cargado, creando instancia del juego...');
+    try {
+        const game = new CaballeroHidalgoGame();
+        console.log('🎮 Instancia del juego creada exitosamente:', game);
+    } catch (error) {
+        console.error('❌ Error al crear instancia del juego:', error);
+    }
+});

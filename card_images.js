@@ -1,7 +1,10 @@
 // ========================================
-// CARD_IMAGES.JS - MAPEO DE CARTAS A IMÁGENES
+// CARD_IMAGES.JS - MAPEO DE IMÁGENES DE CARTAS
 // ========================================
 
+console.log('🃏 card_images.js cargado');
+
+// Mapeo de nombres de cartas a rutas de imágenes
 const CARD_IMAGE_MAPPING = {
     // Cartas de complemento
     "Rocín": "images/cartas/Carta_complemento_rocin.webp",

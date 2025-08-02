@@ -1,6 +1,8 @@
 // ========================================
-// AIPLAYER_SCRIPT.JS - FUNCIONES PARA JUGADORES IA
+// AIPLAYER_SCRIPT.JS - LÓGICA DE LA INTELIGENCIA ARTIFICIAL
 // ========================================
+
+console.log('🤖 aiplayer_script.js cargado');
 
 class AIPlayerRules {
     constructor(gameRules) {
@@ -14,11 +16,21 @@ class AIPlayerRules {
     // ========================================
 
     async playAITurn() {
+        // ✅ NUEVO: Iniciar el turno si no está en progreso
+        if (!this.gameRules.turnInProgress) {
+            this.gameRules.startTurn();
+        }
+
         if (!this.isAIPlayer(this.gameRules.currentPlayer)) {
             return;
         }
 
         console.log(`🤖 Turno de IA: Jugador ${this.gameRules.currentPlayer + 1}`);
+        
+        // ✅ NUEVO: Mostrar estado detallado del turno de IA
+        if (window.game && window.game.showTurnStatus) {
+            window.game.showTurnStatus();
+        }
         
         // ✅ NUEVO: Recuento de cartas al inicio del turno
         this.showCardCount();
@@ -120,10 +132,24 @@ class AIPlayerRules {
         }
 
         console.log(`🤖 IA seleccionó estratégicamente: ${hand[bestCardIndex].name} (valor: ${bestValue})`);
+        
+        // ✅ NUEVO: Registrar la carta jugada por la IA
+        if (window.game && window.game.logCardPlay) {
+            window.game.logCardPlay(hand[bestCardIndex].name);
+        }
+        
         this.playCard(bestCardIndex);
     }
 
     playCard(cardIndex) {
+        console.log(`🔍 [DEBUG] playCard INICIADO - Índice: ${cardIndex}, Fase: ${this.gameRules.gamePhase}, hasPlayed: ${this.gameRules.hasPlayed}, librosMode: ${this.gameRules.librosMode}`);
+        
+        // ✅ NUEVO: Validar que solo el jugador actual pueda jugar
+        if (!this.gameRules.validatePlayerAction(this.gameRules.currentPlayer)) {
+            console.log(`❌ playCard RECHAZADO - No es el turno del jugador`);
+            return false;
+        }
+        
         if (this.gameRules.gamePhase !== 'play' || (this.gameRules.hasPlayed && !this.gameRules.librosMode)) {
             return false;
         }
@@ -209,8 +235,15 @@ class AIPlayerRules {
         if (requiresInteraction) {
             if (!this.gameRules.aiSelectionHandled) {
                 this.gameRules.aiSelectionHandled = true;
-                // ✅ MEJORADO: Aumentar tiempo para que se vea la acción
-                setTimeout(() => this.handleAISelection(card, cardIndex), 2000);
+                
+                // ✅ CORREGIDO: Para cartas de sabotaje, procesar inmediatamente
+                if (['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos'].includes(card.type)) {
+                    console.log(`⚔️ SABOTAJE INMEDIATO: Procesando ${card.name} antes del cambio de turno`);
+                    this.handleSabotageImmediately(card, cardIndex);
+                } else {
+                    // ✅ MEJORADO: Solo usar setTimeout para cartas que no son sabotaje
+                    setTimeout(() => this.handleAISelection(card, cardIndex), 2000);
+                }
             }
         } else {
             switch (card.type) {
@@ -226,6 +259,67 @@ class AIPlayerRules {
                     this.gameRules.hasPlayed = true;
                     break;
             }
+        }
+    }
+
+    // ✅ NUEVO: Función para procesar sabotajes inmediatamente
+    handleSabotageImmediately(card, cardIndex) {
+        console.log(`⚔️ SABOTAJE INMEDIATO: ${card.name} (tipo: ${card.type})`);
+        
+        // ✅ MEJORADO: Mostrar mensaje visual al jugador
+        if (window.game && window.game.updateStatus) {
+            window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está resolviendo: ${card.name}...`);
+        }
+        
+        let targetPlayer;
+        
+        if (['flaqueza', 'duelo', 'bacia', 'pies'].includes(card.type)) {
+            targetPlayer = this.findStrongestPlayer();
+            console.log(`🤖 IA ATACANDO AL MÁS FUERTE: Jugador ${targetPlayer + 1} (${card.name})`);
+            // ✅ MEJORADO: Mostrar mensaje visual al jugador
+            if (window.game && window.game.updateStatus) {
+                window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) ataca al más fuerte: Jugador ${targetPlayer + 1} con ${card.name}`);
+            }
+        } else if (card.type === 'doncella') {
+            targetPlayer = this.findStrongestPlayer();
+            console.log(`🤖 IA RETRASANDO AL MÁS FUERTE: Jugador ${targetPlayer + 1} (Doncella)`);
+            // ✅ MEJORADO: Mostrar mensaje visual al jugador
+            if (window.game && window.game.updateStatus) {
+                window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) retrasa al más fuerte: Jugador ${targetPlayer + 1} con Doncella en apuros`);
+            }
+        } else if (card.type === 'princesa') {
+            targetPlayer = this.findStrongestPlayer();
+            console.log(`🤖 IA ENVIANDO A CASA AL MÁS FUERTE: Jugador ${targetPlayer + 1} (Princesa)`);
+            // ✅ MEJORADO: Mostrar mensaje visual al jugador
+            if (window.game && window.game.updateStatus) {
+                window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) envía a casa al más fuerte: Jugador ${targetPlayer + 1} con Princesa Micomicona`);
+            }
+        } else if (card.type === 'cuchicheos') {
+            targetPlayer = this.findWeakestPlayer();
+            console.log(`🎯 IA INTERCAMBIANDO CON EL MÁS DÉBIL: Jugador ${targetPlayer + 1} (Cuchicheos)`);
+            // ✅ MEJORADO: Mostrar mensaje visual al jugador
+            if (window.game && window.game.updateStatus) {
+                window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) intercambia con el más débil: Jugador ${targetPlayer + 1} con Cuchicheos de ventero`);
+            }
+        }
+        
+        // ✅ CORREGIDO: Procesar el efecto inmediatamente
+        this.handleAIPlayerSelection(targetPlayer + 1, card);
+        
+        // ✅ CORREGIDO: Marcar como jugado después de procesar
+        this.gameRules.hasPlayed = true;
+        this.gameRules.aiSelectionHandled = false;
+        
+        console.log(`⚔️ SABOTAJE INMEDIATO: ${card.name} procesado completamente`);
+        
+        // ✅ NUEVO: Terminar el turno automáticamente después de procesar el sabotaje
+        if (this.isAIPlayer(this.gameRules.currentPlayer)) {
+            console.log(`⚔️ SABOTAJE INMEDIATO: Terminando turno automáticamente después de procesar ${card.name}`);
+            setTimeout(() => {
+                if (window.game && window.game.endTurn) {
+                    window.game.endTurn();
+                }
+            }, 2000);
         }
     }
 
@@ -322,6 +416,11 @@ class AIPlayerRules {
         const originalPlayer = this.gameRules.currentPlayer;
         
         console.log(`🎯 IA PROCESANDO SELECCIÓN: ${card.name} contra Jugador ${playerId}`);
+        
+        // ✅ NUEVO: Registrar la acción de la IA con el jugador objetivo
+        if (window.game && window.game.logCardPlay) {
+            window.game.logCardPlay(card.name, parseInt(playerId) - 1, card.type);
+        }
 
         switch (card.type) {
             case 'flaqueza':
@@ -377,32 +476,36 @@ class AIPlayerRules {
                 return;
         }
 
+        // ✅ CORREGIDO: Para todas las cartas, procesar el descarte y finalización
+        console.log(`🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=${this.currentCardIndex}, currentCard=${this.currentCard ? this.currentCard.name : 'null'}`);
+        
+        // ✅ NUEVO: Para cuchicheos, el descarte se maneja en executeAIExchange
         if (card.type !== 'cuchicheos') {
-            console.log(`🔍 DEBUG: Antes de discardCurrentCard - currentCardIndex=${this.currentCardIndex}, currentCard=${this.currentCard ? this.currentCard.name : 'null'}`);
             // ✅ NUEVO: Usar el jugador original para descartar
             this.discardCurrentCard(originalPlayer);
-            this.gameRules.hasPlayed = true;
-            this.gameRules.aiSelectionHandled = false;
-            this.currentCard = null;
-            this.currentCardIndex = undefined;
-            
-            console.log(`🔍 DEBUG: Estado después de procesar ${card.name}: hasDrawn=${this.gameRules.hasDrawn}, hasPlayed=${this.gameRules.hasPlayed}, aiSelectionHandled=${this.gameRules.aiSelectionHandled}`);
-            
-            if (window.game && window.game.updateDisplay) {
-                window.game.updateDisplay();
-            }
-            
-            if (this.isAIPlayer(this.gameRules.currentPlayer)) {
-                console.log(`🤖 IA: Turno completado, listo para finalizar`);
-                // ✅ CORREGIDO: Finalizar turno automáticamente después de procesar carta
-                setTimeout(() => {
-                    if (window.game && window.game.endTurn) {
-                        window.game.endTurn();
-                    }
-                }, 2000);
-            }
-        } else {
-            this.gameRules.aiSelectionHandled = false;
+        }
+        
+        this.gameRules.hasPlayed = true;
+        this.gameRules.aiSelectionHandled = false;
+        this.currentCard = null;
+        this.currentCardIndex = undefined;
+        
+        console.log(`🔍 DEBUG: Estado después de procesar ${card.name}: hasDrawn=${this.gameRules.hasDrawn}, hasPlayed=${this.gameRules.hasPlayed}, aiSelectionHandled=${this.gameRules.aiSelectionHandled}`);
+        
+        if (window.game && window.game.updateDisplay) {
+            window.game.updateDisplay();
+        }
+        
+        // ✅ CORREGIDO: Solo finalizar turno automáticamente si NO es un sabotaje procesado inmediatamente
+        // Los sabotajes ya se procesan en handleSabotageImmediately, no aquí
+        if (this.isAIPlayer(this.gameRules.currentPlayer) && !['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos'].includes(card.type)) {
+            console.log(`🤖 IA: Turno completado, listo para finalizar`);
+            // ✅ CORREGIDO: Finalizar turno automáticamente después de procesar carta
+            setTimeout(() => {
+                if (window.game && window.game.endTurn) {
+                    window.game.endTurn();
+                }
+            }, 2000);
         }
     }
 
@@ -913,16 +1016,8 @@ class AIPlayerRules {
             window.game.updateDisplay();
         }
         
-        // ✅ NUEVO: Final automático del turno para IA
-        if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
-            console.log(`🤖 IA: Turno completado, listo para finalizar`);
-            // ✅ CORREGIDO: Finalizar turno automáticamente después de intercambio
-            setTimeout(() => {
-                if (window.game && window.game.endTurn) {
-                    window.game.endTurn();
-                }
-            }, 2000);
-        }
+        // ✅ CORREGIDO: La finalización del turno se maneja en handleSabotageImmediately
+        // No es necesario finalizar aquí para cuchicheos
     }
 
     // ========================================

@@ -182,19 +182,40 @@
     <script>
         // Configurar el modo de juego automáticamente basado en parámetros de URL
         window.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const gameMode = urlParams.get('mode');
+            console.log('🌐 DOM cargado en HTML, verificando parámetros de URL...');
             
-            if (gameMode === 'solo') {
-                // Simular clic en modo solo
-                setTimeout(() => {
-                    document.getElementById('solo-mode').click();
-                }, 100);
-            } else if (gameMode === 'ai') {
-                // Simular clic en modo IA
-                setTimeout(() => {
-                    document.getElementById('ai-mode').click();
-                }, 100);
+            // Verificar que el juego se haya inicializado
+            if (window.game) {
+                console.log('✅ Juego inicializado correctamente');
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameMode = urlParams.get('mode');
+                
+                if (gameMode === 'solo') {
+                    console.log('🎮 Configurando modo solo automáticamente');
+                    // Simular clic en modo solo
+                    setTimeout(() => {
+                        const soloBtn = document.getElementById('solo-mode');
+                        if (soloBtn) {
+                            soloBtn.click();
+                        } else {
+                            console.error('❌ No se encontró el botón de modo solo');
+                        }
+                    }, 100);
+                } else if (gameMode === 'ai') {
+                    console.log('🤖 Configurando modo IA automáticamente');
+                    // Simular clic en modo IA
+                    setTimeout(() => {
+                        const aiBtn = document.getElementById('ai-mode');
+                        if (aiBtn) {
+                            aiBtn.click();
+                        } else {
+                            console.error('❌ No se encontró el botón de modo IA');
+                        }
+                    }, 100);
+                }
+            } else {
+                console.error('❌ El juego no se ha inicializado correctamente');
             }
         });
     </script>

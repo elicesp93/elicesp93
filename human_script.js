@@ -1,6 +1,8 @@
 // ========================================
-// HUMAN_SCRIPT.JS - FUNCIONES PARA JUGADORES HUMANOS
+// HUMAN_SCRIPT.JS - LÓGICA DEL JUGADOR HUMANO
 // ========================================
+
+console.log('👤 human_script.js cargado');
 
 class HumanPlayerRules {
     constructor(gameRules) {
@@ -18,9 +20,15 @@ class HumanPlayerRules {
     playCard(cardIndex) {
         console.log(`🔍 [DEBUG] playCard INICIADO - Índice: ${cardIndex}, Fase: ${this.gameRules.gamePhase}, hasPlayed: ${this.gameRules.hasPlayed}, librosMode: ${this.gameRules.librosMode}`);
         
+        // ✅ NUEVO: Validar que solo el jugador actual pueda jugar
+        if (!this.gameRules.validatePlayerAction(this.gameRules.currentPlayer)) {
+            console.log(`❌ playCard RECHAZADO - No es el turno del jugador`);
+            return;
+        }
+        
         if (this.gameRules.gamePhase !== 'play' || (this.gameRules.hasPlayed && !this.gameRules.librosMode)) {
             console.log(`❌ [DEBUG] playCard RECHAZADO - Fase incorrecta o ya jugado`);
-            return false;
+            return;
         }
 
         const player = this.gameRules.players[this.gameRules.currentPlayer];
@@ -33,6 +41,11 @@ class HumanPlayerRules {
 
         console.log(`🎯 HUMANO JUGANDO CARTA: ${card.name} (${card.category}) - Índice: ${cardIndex}`);
         console.log(`🔍 [DEBUG] playCard - Mano antes de jugar: ${player.hand.length} cartas`);
+
+        // ✅ NUEVO: Registrar la carta jugada por el humano
+        if (window.game && window.game.logCardPlay) {
+            window.game.logCardPlay(card.name);
+        }
 
         if (card.category === 'evento') {
             this.playCardToDiscard(cardIndex);
@@ -372,6 +385,11 @@ class HumanPlayerRules {
         
         const card = this.currentCard;
         if (!card) return;
+
+        // ✅ NUEVO: Registrar la acción del humano con el jugador objetivo
+        if (window.game && window.game.logCardPlay) {
+            window.game.logCardPlay(card.name, parseInt(playerId) - 1, card.type);
+        }
 
         if (['caballo', 'insula', 'barbas', 'palo'].includes(card.type)) {
             console.log(`🔄 HUMANO Ejecutando robo directo: ${card.target} del Jugador ${playerId}`);
