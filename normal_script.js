@@ -250,7 +250,7 @@ class NormalGameRules {
             return true;
         }
 
-        if (this.molinoActive && this.currentPlayer === this.molinoPlayer) {
+        if (this.molinoActive) {
             console.log(`🌪️ Molino activo para jugador ${this.currentPlayer + 1}, turnos restantes: ${this.molinoTurns}`);
             this.molinoTurns--;
             if (this.molinoTurns <= 0) {

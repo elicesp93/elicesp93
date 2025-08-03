@@ -798,7 +798,7 @@ class AIPlayerRules {
 
     activateMolino() {
         this.gameRules.molinoActive = true;
-        this.gameRules.molinoTurns = 1;
+        this.gameRules.molinoTurns = 4; // Una ronda completa (4 jugadores)
         this.gameRules.molinoPlayer = this.gameRules.currentPlayer;
         console.log(`🌪️ IA activó Molino de viento`);
         // ✅ MEJORADO: Mostrar mensaje específico de evento
