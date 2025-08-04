@@ -197,6 +197,16 @@ class NormalGameRules {
 
     // ✅ NUEVO: Método para iniciar un turno
     startTurn() {
+        // ✅ NUEVO: Validación defensiva al iniciar cualquier turno
+        const inconsistentState = this.hasDrawn || this.hasPlayed;
+        
+        if (inconsistentState) {
+            console.log(`⚠️ ADVERTENCIA: Estado inconsistente detectado al iniciar turno del Jugador ${this.currentPlayer + 1}`);
+            console.log(`⚠️ Estado anterior: hasDrawn=${this.hasDrawn}, hasPlayed=${this.hasPlayed}`);
+            this.resetTurnState();
+            console.log(`✅ Estado corregido: hasDrawn=${this.hasDrawn}, hasPlayed=${this.hasPlayed}`);
+        }
+        
         this.turnInProgress = true;
         console.log(`🔄 TURNO INICIADO: Jugador ${this.currentPlayer + 1} - Protección activada (turnInProgress: ${this.turnInProgress})`);
     }
@@ -431,6 +441,16 @@ class NormalGameRules {
         this.initializeDeck();
         this.shuffleDeck();
         this.dealInitialCards();
+    }
+
+    // ✅ NUEVO: Método separado para resetear el estado del turno
+    resetTurnState() {
+        this.gamePhase = 'draw';
+        this.hasDrawn = false;
+        this.hasPlayed = false;
+        this.librosMode = false;
+        this.aiSelectionHandled = false;
+        console.log(`🔄 Estado del turno reseteado: gamePhase=${this.gamePhase}, hasDrawn=${this.hasDrawn}, hasPlayed=${this.hasPlayed}`);
     }
 }
 
