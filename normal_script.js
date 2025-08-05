@@ -118,29 +118,20 @@ class NormalGameRules {
     }
 
     dealInitialCards() {
-        console.log(` Repartiendo cartas aleatorias a ${this.playerCount} jugadores`);
+        console.log(`🎮 Repartiendo cartas aleatorias a ${this.playerCount} jugadores`);
         
-        // ✅ NUEVO: Añadir cartas específicas a cada jugador al inicio
-        for (let playerIndex = 0; playerIndex < this.playerCount; playerIndex++) {
-            // ✅ MODIFICADO: Todos los jugadores reciben "Molino de viento"
-            const molinoIndex = this.deck.findIndex(card => card.name === "Molino de viento");
-            if (molinoIndex !== -1) {
-                const molino = this.deck.splice(molinoIndex, 1)[0];
-                this.players[playerIndex].hand.push(molino);
-                console.log(`🎮 Jugador ${playerIndex + 1} recibe "Molino de viento" al inicio`);
-            }
-        }
-        
-        // Repartir 2 cartas aleatorias adicionales a cada jugador (para completar 3)
-        for (let i = 0; i < 2; i++) {
+        // ✅ MODIFICADO: Repartir 3 cartas completamente aleatorias a cada jugador
+        for (let i = 0; i < 3; i++) {
             for (let playerIndex = 0; playerIndex < this.playerCount; playerIndex++) {
                 if (this.deck.length > 0) {
-                    this.players[playerIndex].hand.push(this.deck.pop());
+                    const card = this.deck.pop();
+                    this.players[playerIndex].hand.push(card);
+                    console.log(`🎮 Jugador ${playerIndex + 1} recibe: "${card.name}"`);
                 }
             }
         }
         
-        console.log(` Reparto completado. Cartas en manos:`);
+        console.log(`✅ Reparto completado. Cartas en manos:`);
         for (let i = 0; i < this.playerCount; i++) {
             console.log(`🎮 Jugador ${i + 1}: ${this.players[i].hand.length} cartas`);
         }

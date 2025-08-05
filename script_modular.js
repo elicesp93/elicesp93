@@ -566,10 +566,10 @@ class CaballeroHidalgoGame {
                     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
                     animation: pulse 2s infinite;
                 `;
-                molinoIndicator.textContent = `🌪️ Molino Activo (${this.gameRules.molinoTurns} rondas)`;
+                molinoIndicator.textContent = `🌪️ Molino Activo (${this.gameRules.molinoTurns} turnos)`;
                 document.body.appendChild(molinoIndicator);
             } else {
-                molinoIndicator.textContent = `🌪️ Molino Activo (${this.gameRules.molinoTurns} rondas)`;
+                molinoIndicator.textContent = `🌪️ Molino Activo (${this.gameRules.molinoTurns} turnos)`;
             }
         } else {
             gameContainerElement.classList.remove('molino-active');
@@ -643,60 +643,103 @@ class CaballeroHidalgoGame {
                         });
                     }
                 }
-                
-                // Actualizar mano y equipo del jugador actual (jugador 1)
-                if (i === 0) { // Solo el jugador 1 (jugador actual) muestra cartas
-                    // Actualizar cartas de la mano
-                    const handCardsContainer = document.querySelector('.hand-cards');
-                    if (handCardsContainer) {
-                        handCardsContainer.innerHTML = '';
-                        
-                        // Mostrar cartas con imágenes para el jugador actual
-                        player.hand.forEach((card, cardIndex) => {
-                            // Solo permitir clics en cartas si es turno del jugador y no es IA
-                            const isClickable = (i === this.gameRules.currentPlayer && !this.isAIPlayer(this.gameRules.currentPlayer));
-                            const onClickHandler = isClickable ? () => this.playCard(cardIndex) : null;
-                            
-                            const cardElement = createCardElement(card, isClickable, onClickHandler, player.equipment);
-                            handCardsContainer.appendChild(cardElement);
-                        });
-                    }
-                    
-                    // Actualizar equipo del jugador actual
-                    const currentEquipmentTypes = ['rocin', 'lanza', 'yelmo', 'escudero'];
-                    currentEquipmentTypes.forEach(type => {
-                        const currentEquipmentElement = document.getElementById(`current-player-${type}`);
-                        if (currentEquipmentElement) {
-                            currentEquipmentElement.classList.remove('has-equipment', 'protected');
-                            if (player.equipment[type]) {
-                                currentEquipmentElement.classList.add('has-equipment');
-                                if (player.equipment[type].protected) {
-                                    currentEquipmentElement.classList.add('protected');
-                                }
-                            }
-                        }
-                    });
-                }
             }
         }
+        
+        // ✅ NUEVO: Actualizar contenido de .player-table-row según el modo de juego
+        this.updatePlayerTableRow();
         
         // ✅ NUEVO: Mostrar cartas en la mesa (últimas cartas jugadas)
         this.updateTableCards();
     }
     
-    // ✅ CORREGIDO: Actualizar cartas en la mesa (equipamiento del jugador 1)
+    // ✅ NUEVO: Actualizar contenido de .player-table-row según el modo de juego
+    updatePlayerTableRow() {
+        const currentPlayerTitle = document.querySelector('.current-player-title');
+        const handCardsContainer = document.querySelector('.hand-cards');
+        const handTitle = document.querySelector('.hand-title');
+        
+        if (!currentPlayerTitle || !handCardsContainer || !handTitle) {
+            console.error('❌ ERROR: No se encontraron elementos de .player-table-row');
+            return;
+        }
+        
+        // En modo solo, mostrar información del jugador actual
+        if (this.gameRules.gameMode === 'solo') {
+            const currentPlayer = this.gameRules.currentPlayer;
+            const player = this.gameRules.players[currentPlayer];
+            
+            // Actualizar título
+            currentPlayerTitle.textContent = `Jugador ${currentPlayer + 1} - Tu Mesa`;
+            
+            // Actualizar título de la mano
+            handTitle.textContent = `Mano del Jugador ${currentPlayer + 1}`;
+            
+            // Actualizar cartas de la mano
+            handCardsContainer.innerHTML = '';
+            
+            // Mostrar cartas con imágenes para el jugador actual
+            player.hand.forEach((card, cardIndex) => {
+                // Solo permitir clics en cartas si es turno del jugador
+                const isClickable = (currentPlayer === this.gameRules.currentPlayer);
+                const onClickHandler = isClickable ? () => this.playCard(cardIndex) : null;
+                
+                const cardElement = createCardElement(card, isClickable, onClickHandler, player.equipment);
+                handCardsContainer.appendChild(cardElement);
+            });
+            
+            // Actualizar equipo del jugador actual
+            // Nota: Los elementos current-player-* no existen en el HTML actual
+            // El equipamiento se muestra en la parte superior de la pantalla
+            // y se actualiza automáticamente en updateDisplay()
+            
+        } else {
+            // En modo IA, mantener comportamiento original (solo jugador 1)
+            const player1 = this.gameRules.players[0];
+            
+            // Actualizar título
+            currentPlayerTitle.textContent = 'Jugador 1 - Tu Mesa';
+            
+            // Actualizar título de la mano
+            handTitle.textContent = 'Mano del Jugador';
+            
+            // Actualizar cartas de la mano
+            handCardsContainer.innerHTML = '';
+            
+            // Mostrar cartas con imágenes para el jugador 1
+            player1.hand.forEach((card, cardIndex) => {
+                // Solo permitir clics en cartas si es turno del jugador 1 y no es IA
+                const isClickable = (0 === this.gameRules.currentPlayer && !this.isAIPlayer(this.gameRules.currentPlayer));
+                const onClickHandler = isClickable ? () => this.playCard(cardIndex) : null;
+                
+                const cardElement = createCardElement(card, isClickable, onClickHandler, player1.equipment);
+                handCardsContainer.appendChild(cardElement);
+            });
+            
+            // Actualizar equipo del jugador 1
+            // Nota: Los elementos current-player-* no existen en el HTML actual
+            // El equipamiento se muestra en la parte superior de la pantalla
+            // y se actualiza automáticamente en updateDisplay()
+        }
+    }
+    
+    // ✅ CORREGIDO: Actualizar cartas en la mesa (equipamiento del jugador actual en modo solo)
     updateTableCards() {
         const tableCardsContainer = document.getElementById('table-cards');
         if (!tableCardsContainer) return;
         
         tableCardsContainer.innerHTML = '';
         
-        // Mostrar las cartas equipadas del jugador 1 (jugador humano)
-        const player1 = this.gameRules.players[0];
+        // En modo solo, mostrar equipamiento del jugador actual
+        // En modo IA, mostrar equipamiento del jugador 1
+        const targetPlayer = this.gameRules.gameMode === 'solo' ? 
+            this.gameRules.currentPlayer : 0;
+        const player = this.gameRules.players[targetPlayer];
+        
         const equippedCards = [];
         
         // Obtener todas las cartas equipadas
-        Object.values(player1.equipment).forEach(equipment => {
+        Object.values(player.equipment).forEach(equipment => {
             if (equipment) {
                 equippedCards.push(equipment);
                 // Si hay carta de protección, agregarla también
