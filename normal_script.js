@@ -118,10 +118,21 @@ class NormalGameRules {
     }
 
     dealInitialCards() {
-        console.log(`🎮 Repartiendo cartas aleatorias a ${this.playerCount} jugadores`);
+        console.log(` Repartiendo cartas aleatorias a ${this.playerCount} jugadores`);
         
-        // Repartir 3 cartas aleatorias a cada jugador
-        for (let i = 0; i < 3; i++) {
+        // ✅ NUEVO: Añadir cartas específicas a cada jugador al inicio
+        for (let playerIndex = 0; playerIndex < this.playerCount; playerIndex++) {
+            // ✅ MODIFICADO: Todos los jugadores reciben "Molino de viento"
+            const molinoIndex = this.deck.findIndex(card => card.name === "Molino de viento");
+            if (molinoIndex !== -1) {
+                const molino = this.deck.splice(molinoIndex, 1)[0];
+                this.players[playerIndex].hand.push(molino);
+                console.log(`🎮 Jugador ${playerIndex + 1} recibe "Molino de viento" al inicio`);
+            }
+        }
+        
+        // Repartir 2 cartas aleatorias adicionales a cada jugador (para completar 3)
+        for (let i = 0; i < 2; i++) {
             for (let playerIndex = 0; playerIndex < this.playerCount; playerIndex++) {
                 if (this.deck.length > 0) {
                     this.players[playerIndex].hand.push(this.deck.pop());
@@ -129,7 +140,7 @@ class NormalGameRules {
             }
         }
         
-        console.log(`🎮 Reparto completado. Cartas en manos:`);
+        console.log(` Reparto completado. Cartas en manos:`);
         for (let i = 0; i < this.playerCount; i++) {
             console.log(`🎮 Jugador ${i + 1}: ${this.players[i].hand.length} cartas`);
         }
@@ -140,11 +151,10 @@ class NormalGameRules {
     // ========================================
 
     drawCard() {
+        // ✅ NUEVO: Bloquear completamente si está saltado
         if (this.players[this.currentPlayer].skipped) {
-            console.log(`⏰ Jugador ${this.currentPlayer + 1} está saltado, pasando al siguiente turno`);
-            this.players[this.currentPlayer].skipped = false;
-            this.endTurn();
-            return;
+            console.log(`⏭️ drawCard BLOQUEADO: Jugador ${this.currentPlayer + 1} está saltado`);
+            return null;
         }
 
         if (this.gamePhase !== 'draw' || this.hasDrawn) {
@@ -159,13 +169,12 @@ class NormalGameRules {
             const card = this.deck.pop();
             const player = this.players[this.currentPlayer];
             
-            console.log(`[DEBUG] drawCard: Jugador ${this.currentPlayer + 1} robando "${card.name}". Mano antes: ${player.hand.length} cartas, mazo: ${this.deck.length + 1} cartas`);
+            // ✅ SIMPLIFICADO: Solo mostrar carta robada
+            console.log(`🃏 Jugador ${this.currentPlayer + 1} robó: "${card.name}"`);
             
             player.hand.push(card);
             this.hasDrawn = true;
             this.gamePhase = 'play';
-            
-            console.log(`[DEBUG] drawCard: Jugador ${this.currentPlayer + 1} robó "${card.name}". Mano después: ${player.hand.length} cartas, mazo: ${this.deck.length} cartas`);
             
             return card;
         }
@@ -184,14 +193,15 @@ class NormalGameRules {
         }
     }
 
-    // ✅ NUEVO: Método para validar que solo el jugador actual pueda jugar
     validatePlayerAction(playerIndex) {
-        console.log(`🔍 [DEBUG] validatePlayerAction - turnInProgress: ${this.turnInProgress}, playerIndex: ${playerIndex}, currentPlayer: ${this.currentPlayer}`);
-        if (this.turnInProgress && playerIndex !== this.currentPlayer) {
-            console.log(`❌ ACCIÓN BLOQUEADA: Jugador ${playerIndex + 1} intentó jugar durante el turno del Jugador ${this.currentPlayer + 1}`);
+        // ✅ NUEVO: Bloquear completamente si está saltado
+        if (this.players[playerIndex].skipped) {
             return false;
         }
-        console.log(`✅ ACCIÓN PERMITIDA: Jugador ${playerIndex + 1} puede jugar`);
+        
+        if (this.turnInProgress && playerIndex !== this.currentPlayer) {
+            return false;
+        }
         return true;
     }
 
@@ -201,87 +211,91 @@ class NormalGameRules {
         const inconsistentState = this.hasDrawn || this.hasPlayed;
         
         if (inconsistentState) {
-            console.log(`⚠️ ADVERTENCIA: Estado inconsistente detectado al iniciar turno del Jugador ${this.currentPlayer + 1}`);
-            console.log(`⚠️ Estado anterior: hasDrawn=${this.hasDrawn}, hasPlayed=${this.hasPlayed}`);
             this.resetTurnState();
-            console.log(`✅ Estado corregido: hasDrawn=${this.hasDrawn}, hasPlayed=${this.hasPlayed}`);
         }
         
         this.turnInProgress = true;
-        console.log(`🔄 TURNO INICIADO: Jugador ${this.currentPlayer + 1} - Protección activada (turnInProgress: ${this.turnInProgress})`);
     }
 
     // ✅ NUEVO: Método para finalizar un turno
     finishTurn() {
         this.turnInProgress = false;
-        console.log(`✅ TURNO FINALIZADO: Jugador ${this.currentPlayer + 1} - Protección desactivada (turnInProgress: ${this.turnInProgress})`);
     }
 
     endTurn() {
-        console.log(`🔍 [DEBUG] endTurn INICIADO - turnInProgress: ${this.turnInProgress}, hasDrawn: ${this.hasDrawn}, hasPlayed: ${this.hasPlayed}`);
-        
         if (!this.hasDrawn || !this.hasPlayed) {
-            console.log(`❌ endTurn RECHAZADO - Condiciones no cumplidas`);
             return false;
         }
 
         // ✅ NUEVO: Solo permitir endTurn si el turno está en progreso
         if (!this.turnInProgress) {
-            console.log(`❌ END_TURN BLOQUEADO: No hay turno en progreso (turnInProgress: ${this.turnInProgress})`);
             return false;
         }
 
         const previousPlayer = this.currentPlayer;
-        this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
-        this.turn++;
-
-        // ✅ NUEVO: Finalizar el turno actual antes de cambiar al siguiente
+        
+        // ✅ CORREGIDO: Finalizar el turno actual ANTES de cambiar
         this.finishTurn();
+        
+        // ✅ MEJORADO: Manejo simple de turnos saltados sin recursión
+        this.advanceToNextValidPlayer();
+        
+        return true;
+    }
 
-        console.log(`🔄 TURNO CAMBIADO: Jugador ${previousPlayer + 1} → Jugador ${this.currentPlayer + 1}`);
-
+    // ✅ NUEVO: Método simple sin recursión
+    advanceToNextValidPlayer() {
+        // ✅ CORREGIDO: Incrementar el contador de turnos
+        this.turn++;
+        
+        // ✅ CORREGIDO: Cambiar al siguiente jugador
+        this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
+        
+        // ✅ DEFINITIVO: Si está saltado, saltarlo completamente
         if (this.players[this.currentPlayer].skipped) {
-            console.log(`⏭️ Jugador ${this.currentPlayer + 1} está saltado, saltando turno`);
+            // ✅ SIMPLIFICADO: Solo mostrar que el jugador está saltado
+            console.log(`⏭️ Jugador ${this.currentPlayer + 1} está saltado`);
+            
+            // ✅ NUEVO: Mostrar mensaje al jugador
+            if (window.game && window.game.updateStatus) {
+                window.game.updateStatus(`⏭️ Jugador ${this.currentPlayer + 1} está siendo saltado por Doncella en apuros...`);
+            }
+            
+            // ✅ CORREGIDO: Resetear el estado de saltado ANTES de continuar
             this.players[this.currentPlayer].skipped = false;
             
-            // ✅ CORREGIDO: Evitar llamada recursiva problemática
-            // En su lugar, cambiar directamente al siguiente jugador
-            this.currentPlayer = (this.currentPlayer + 1) % this.playerCount;
-            this.turn++;
-            
-            // ✅ CORREGIDO: Verificar si el nuevo jugador también está saltado
-            if (this.players[this.currentPlayer].skipped) {
-                console.log(`⏭️ Jugador ${this.currentPlayer + 1} también está saltado, continuando...`);
-                return this.endTurn(); // Llamada recursiva solo si es necesario
-            }
-            
-            // ✅ CORREGIDO: Iniciar el turno del nuevo jugador
-            this.startTurn();
-            return true;
+            // ✅ CORREGIDO: Continuar al siguiente jugador inmediatamente
+            this.advanceToNextValidPlayer();
+            return;
         }
-
-        if (this.molinoActive) {
-            console.log(`🌪️ Molino activo para jugador ${this.currentPlayer + 1}, turnos restantes: ${this.molinoTurns}`);
+        
+        // ✅ NUEVO: Manejo del molino de viento
+        if (this.molinoActive && this.molinoTurns > 0) {
             this.molinoTurns--;
+            console.log(`🌪️ Molino activo para jugador ${this.currentPlayer + 1}, turnos restantes: ${this.molinoTurns}`);
+            
+            // ✅ CORREGIDO: Desactivar molino cuando se agotan los turnos
             if (this.molinoTurns <= 0) {
-                console.log(`🌪️ Molino terminado`);
                 this.molinoActive = false;
                 this.molinoPlayer = -1;
+                console.log(`🌪️ Molino de viento desactivado`);
+                
+                // ✅ NUEVO: Mostrar mensaje al jugador
+                if (window.game && window.game.updateStatus) {
+                    window.game.updateStatus(`🌪️ El molino de viento se ha detenido`);
+                }
             }
         }
-
+        
+        // ✅ CORREGIDO: Resetear estado del turno
         this.gamePhase = 'draw';
         this.hasDrawn = false;
         this.hasPlayed = false;
         this.librosMode = false;
         this.aiSelectionHandled = false;
 
-        // ✅ NUEVO: Iniciar el nuevo turno
+        // ✅ CORREGIDO: Iniciar el nuevo turno
         this.startTurn();
-
-        console.log(`✅ endTurn COMPLETADO - Nuevo turno iniciado para Jugador ${this.currentPlayer + 1}`);
-
-        return true;
     }
 
     // ========================================
@@ -314,13 +328,13 @@ class NormalGameRules {
         }
         
         if (player.equipment[equipmentType].protected) {
-            console.log(`🛡️ Equipamiento protegido: ${equipmentType} del Jugador ${playerId + 1}`);
+            // ✅ SIMPLIFICADO: Solo mostrar que está protegido
+            console.log(`🛡️ "${this.getEquipmentName(equipmentType)}" está protegido`);
             
             // ✅ CORREGIDO: Manejar la carta de protección cuando se consume
             const protectionCard = player.equipment[equipmentType].protectionCard;
             if (protectionCard) {
                 this.discardPile.push(protectionCard);
-                console.log(`🗑️ PROTECCIÓN CONSUMIDA: ${protectionCard.name} va al descarte`);
             }
             
             player.equipment[equipmentType].protected = false;
@@ -329,13 +343,12 @@ class NormalGameRules {
         }
         
         const removedCard = player.equipment[equipmentType];
-        console.log(`[DEBUG] removeEquipment: Quitando ${equipmentType} de Jugador ${playerId + 1}. Equipamiento antes: ${JSON.stringify(removedCard)}`);
         
         player.equipment[equipmentType] = null;
         this.discardPile.push(removedCard);
         
-        console.log(`🗑️ Equipamiento removido: ${removedCard.name} del Jugador ${playerId + 1}`);
-        console.log(`[DEBUG] removeEquipment: ${removedCard.name} añadido al descarte. Descarte: ${this.discardPile.length} cartas`);
+        // ✅ SIMPLIFICADO: Solo mostrar equipamiento removido
+        console.log(`🗑️ "${removedCard.name}" removido del Jugador ${playerId + 1}`);
         return true;
     }
 

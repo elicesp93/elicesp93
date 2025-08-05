@@ -9,6 +9,7 @@ class AIPlayerRules {
         this.gameRules = gameRules;
         this.currentCard = null;
         this.currentCardIndex = undefined;
+        this.playedCard = null; // ✅ NUEVO: Para guardar la carta jugada cuando se resetea currentCard
     }
 
     // ========================================
@@ -41,40 +42,45 @@ class AIPlayerRules {
 
         // Fase 1: Robar carta
         if (!this.gameRules.hasDrawn && !this.gameRules.librosMode) {
-            console.log(`🤖 IA robando carta...`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está robando una carta...`);
             }
             this.gameRules.drawCard();
             // ✅ MEJORADO: Aumentar tiempo para que se vea la acción
-            await this.delay(3000);
+            await this.delay(1000);
         }
 
         // Fase 2: Jugar carta
         if ((this.gameRules.hasDrawn || this.gameRules.librosMode) && !this.gameRules.hasPlayed) {
-            console.log(`🤖 IA jugando carta...`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
-                window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está evaluando sus cartas...`);
+                if (this.gameRules.librosMode) {
+                    window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está jugando carta adicional después de Libros de caballería...`);
+                } else {
+                    window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está evaluando sus cartas...`);
+                }
             }
             await this.delay(2000);
             this.playAICard();
             
+            // ✅ CORREGIDO: Usar la carta guardada en addEquipment si currentCard es null
             const currentCard = this.currentCard;
+            const playedCardName = this.playedCard;
+            
             if (currentCard && ['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos', 'caballo', 'insula', 'barbas', 'palo', 'balsamo'].includes(currentCard.type)) {
-                console.log(`🤖 IA esperando resolución de carta interactiva: ${currentCard.name}`);
                 // ✅ MEJORADO: Mostrar mensaje visual al jugador
                 if (window.game && window.game.updateStatus) {
                     window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está resolviendo: ${currentCard.name}...`);
                 }
-                await this.delay(5000);
+                await this.delay(2400);
             } else {
                 // ✅ MEJORADO: Mostrar mensaje visual al jugador con acción específica
                 if (window.game && window.game.updateStatus) {
-                    const currentCard = this.currentCard;
                     if (currentCard) {
                         window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) jugó: ${currentCard.name}`);
+                    } else if (playedCardName) {
+                        window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) jugó: ${playedCardName}`);
                     } else {
                         window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) completó su turno`);
                     }
@@ -83,13 +89,10 @@ class AIPlayerRules {
             }
         }
         
-        console.log(`🔍 DEBUG: Condiciones para terminar turno: hasDrawn=${this.gameRules.hasDrawn}, librosMode=${this.gameRules.librosMode}, hasPlayed=${this.gameRules.hasPlayed}, aiSelectionHandled=${this.gameRules.aiSelectionHandled}, isAI=${this.isAIPlayer(this.gameRules.currentPlayer)}`);
-        
         // ✅ CORREGIDO: Simplificar la lógica de finalización del turno
         // Si el jugador ha robado y jugado, o está en modo libros y ha jugado, terminar el turno
         if (((this.gameRules.hasDrawn || this.gameRules.librosMode) && this.gameRules.hasPlayed) || 
             (this.gameRules.hasDrawn && this.gameRules.players[this.gameRules.currentPlayer].hand.length === 0)) {
-            console.log(`🤖 IA terminando turno...`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) terminó su turno...`);
@@ -98,8 +101,11 @@ class AIPlayerRules {
             if (window.game && window.game.endTurn) {
                 window.game.endTurn();
             }
-        } else {
-            console.log(`🔍 DEBUG: IA no puede terminar turno aún - hasDrawn: ${this.gameRules.hasDrawn}, librosMode: ${this.gameRules.librosMode}, hasPlayed: ${this.gameRules.hasPlayed}, handLength: ${this.gameRules.players[this.gameRules.currentPlayer].hand.length}`);
+        } else if (this.gameRules.librosMode && !this.gameRules.hasPlayed) {
+            // ✅ NUEVO: Si está en modo libros y no ha jugado, continuar jugando
+            console.log(`📚 IA: Continuando turno en modo libros`);
+            await this.delay(1000);
+            this.playAICard();
         }
     }
 
@@ -108,14 +114,11 @@ class AIPlayerRules {
         const hand = player.hand;
 
         if (hand.length === 0) {
-            console.log(`🤖 IA no tiene cartas para jugar`);
             // ✅ CORREGIDO: Si no tiene cartas, marcar como que ya jugó para poder terminar el turno
             this.gameRules.hasPlayed = true;
             return;
         }
 
-        console.log(`🔍 IA evaluando estratégicamente las cartas...`);
-        
         let bestCardIndex = 0;
         let bestValue = -1;
         
@@ -123,33 +126,24 @@ class AIPlayerRules {
             const card = hand[i];
             const value = this.evaluateCardValue(card, player);
             
-            console.log(`🤖 IA: ${card.name} = valor ${value}`);
-            
             if (value > bestValue) {
                 bestValue = value;
                 bestCardIndex = i;
             }
         }
-
-        console.log(`🤖 IA seleccionó estratégicamente: ${hand[bestCardIndex].name} (valor: ${bestValue})`);
         
-        // ✅ NUEVO: Registrar la carta jugada por la IA
-        if (window.game && window.game.logCardPlay) {
-            window.game.logCardPlay(hand[bestCardIndex].name);
-        }
+        const selectedCard = hand[bestCardIndex];
+        // ✅ SIMPLIFICADO: Solo mostrar carta seleccionada
+        console.log(`🤖 IA seleccionó: "${selectedCard.name}"`);
         
         this.playCard(bestCardIndex);
     }
 
     playCard(cardIndex) {
-        console.log(`🔍 [DEBUG] playCard INICIADO - Índice: ${cardIndex}, Fase: ${this.gameRules.gamePhase}, hasPlayed: ${this.gameRules.hasPlayed}, librosMode: ${this.gameRules.librosMode}`);
-        
-        // ✅ NUEVO: Validar que solo el jugador actual pueda jugar
         if (!this.gameRules.validatePlayerAction(this.gameRules.currentPlayer)) {
-            console.log(`❌ playCard RECHAZADO - No es el turno del jugador`);
             return false;
         }
-        
+
         if (this.gameRules.gamePhase !== 'play' || (this.gameRules.hasPlayed && !this.gameRules.librosMode)) {
             return false;
         }
@@ -157,9 +151,20 @@ class AIPlayerRules {
         const player = this.gameRules.players[this.gameRules.currentPlayer];
         const card = player.hand[cardIndex];
 
-        if (!card) return false;
+        if (!card) {
+            return false;
+        }
 
-        console.log(`🤖 IA JUGANDO CARTA: ${card.name} (${card.category}) - Índice: ${cardIndex}`);
+        // ✅ SIMPLIFICADO: Solo mostrar carta jugada
+        console.log(`🤖 IA jugó: "${card.name}"`);
+
+        // ✅ NUEVO: Establecer la carta actual para que se muestre en pantalla
+        this.currentCard = card;
+
+        // ✅ NUEVO: Registrar la carta jugada por la IA
+        if (window.game && window.game.logCardPlay) {
+            window.game.logCardPlay(card.name);
+        }
 
         if (card.category === 'evento') {
             this.playCardToDiscard(cardIndex);
@@ -174,6 +179,7 @@ class AIPlayerRules {
         const card = player.hand[cardIndex];
 
         console.log(`📤 IA DESCARTANDO CARTA: ${card.name} - Índice: ${cardIndex}`);
+        console.log(`🔍 DEBUG: currentCard en playCardToDiscard: ${this.currentCard ? this.currentCard.name : 'null'}`);
 
         this.currentCardIndex = cardIndex;
         this.executeCardEffect(card, cardIndex);
@@ -198,6 +204,7 @@ class AIPlayerRules {
         const card = this.gameRules.players[this.gameRules.currentPlayer].hand[cardIndex];
         
         console.log(`⚙️ IA OPCIONES DE JUEGO: ${card.name} (${card.category}) - Índice: ${cardIndex}`);
+        console.log(`🔍 DEBUG: currentCard en showPlayOptions: ${this.currentCard ? this.currentCard.name : 'null'}`);
         
         if (card.category === 'complemento') {
             this.addEquipment(card.type);
@@ -228,7 +235,8 @@ class AIPlayerRules {
     // ========================================
 
     executeCardEffect(card, cardIndex) {
-        console.log(`🎯 IA EJECUTANDO EFECTO: ${card.name} (${card.category})`);
+        // ✅ SIMPLIFICADO: Solo mostrar efecto de la carta
+        console.log(`⚔️ Efecto: "${card.name}"`);
         
         const requiresInteraction = ['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos', 'caballo', 'insula', 'barbas', 'palo', 'libros'].includes(card.type);
         
@@ -238,7 +246,6 @@ class AIPlayerRules {
                 
                 // ✅ CORREGIDO: Para cartas de sabotaje, procesar inmediatamente
                 if (['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos'].includes(card.type)) {
-                    console.log(`⚔️ SABOTAJE INMEDIATO: Procesando ${card.name} antes del cambio de turno`);
                     this.handleSabotageImmediately(card, cardIndex);
                 } else {
                     // ✅ MEJORADO: Solo usar setTimeout para cartas que no son sabotaje
@@ -255,8 +262,16 @@ class AIPlayerRules {
                     break;
                 default:
                     // ✅ CORREGIDO: Para cualquier otra carta que no requiera interacción, marcar como jugada
-                    console.log(`🤖 IA: Carta sin interacción procesada: ${card.name}`);
                     this.gameRules.hasPlayed = true;
+                    // ✅ NUEVO: Finalizar turno automáticamente para cartas que no requieren interacción
+                    if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
+                        console.log(`🤖 IA: Turno completado con carta ${card.name}, listo para finalizar`);
+                        setTimeout(() => {
+                            if (window.game && window.game.endTurn) {
+                                window.game.endTurn();
+                            }
+                        }, 2000);
+                    }
                     break;
             }
         }
@@ -264,8 +279,6 @@ class AIPlayerRules {
 
     // ✅ NUEVO: Función para procesar sabotajes inmediatamente
     handleSabotageImmediately(card, cardIndex) {
-        console.log(`⚔️ SABOTAJE INMEDIATO: ${card.name} (tipo: ${card.type})`);
-        
         // ✅ MEJORADO: Mostrar mensaje visual al jugador
         if (window.game && window.game.updateStatus) {
             window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) está resolviendo: ${card.name}...`);
@@ -275,33 +288,40 @@ class AIPlayerRules {
         
         if (['flaqueza', 'duelo', 'bacia', 'pies'].includes(card.type)) {
             targetPlayer = this.findStrongestPlayer();
-            console.log(`🤖 IA ATACANDO AL MÁS FUERTE: Jugador ${targetPlayer + 1} (${card.name})`);
+            // ✅ SIMPLIFICADO: Solo mostrar efecto y objetivo
+            console.log(`⚔️ "${card.name}" → Jugador ${targetPlayer + 1} (más fuerte)`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) ataca al más fuerte: Jugador ${targetPlayer + 1} con ${card.name}`);
             }
         } else if (card.type === 'doncella') {
             targetPlayer = this.findStrongestPlayer();
-            console.log(`🤖 IA RETRASANDO AL MÁS FUERTE: Jugador ${targetPlayer + 1} (Doncella)`);
+            // ✅ SIMPLIFICADO: Solo mostrar efecto y objetivo
+            console.log(`⏭️ "Doncella en apuros" → Jugador ${targetPlayer + 1} (saltado)`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) retrasa al más fuerte: Jugador ${targetPlayer + 1} con Doncella en apuros`);
             }
         } else if (card.type === 'princesa') {
             targetPlayer = this.findStrongestPlayer();
-            console.log(`🤖 IA ENVIANDO A CASA AL MÁS FUERTE: Jugador ${targetPlayer + 1} (Princesa)`);
+            // ✅ SIMPLIFICADO: Solo mostrar efecto y objetivo
+            console.log(`🏠 "Princesa Micomicona" → Jugador ${targetPlayer + 1} (a casa)`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) envía a casa al más fuerte: Jugador ${targetPlayer + 1} con Princesa Micomicona`);
             }
         } else if (card.type === 'cuchicheos') {
             targetPlayer = this.findWeakestPlayer();
-            console.log(`🎯 IA INTERCAMBIANDO CON EL MÁS DÉBIL: Jugador ${targetPlayer + 1} (Cuchicheos)`);
+            // ✅ SIMPLIFICADO: Solo mostrar efecto y objetivo
+            console.log(`🗣️ "Cuchicheos de ventero" → Jugador ${targetPlayer + 1} (intercambio)`);
             // ✅ MEJORADO: Mostrar mensaje visual al jugador
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) intercambia con el más débil: Jugador ${targetPlayer + 1} con Cuchicheos de ventero`);
             }
         }
+        
+        // ✅ CORREGIDO: Guardar la carta ANTES de procesar el efecto
+        this.playedCard = this.currentCard ? this.currentCard.name : null;
         
         // ✅ CORREGIDO: Procesar el efecto inmediatamente
         this.handleAIPlayerSelection(targetPlayer + 1, card);
@@ -310,11 +330,8 @@ class AIPlayerRules {
         this.gameRules.hasPlayed = true;
         this.gameRules.aiSelectionHandled = false;
         
-        console.log(`⚔️ SABOTAJE INMEDIATO: ${card.name} procesado completamente`);
-        
         // ✅ NUEVO: Terminar el turno automáticamente después de procesar el sabotaje
         if (this.isAIPlayer(this.gameRules.currentPlayer)) {
-            console.log(`⚔️ SABOTAJE INMEDIATO: Terminando turno automáticamente después de procesar ${card.name}`);
             setTimeout(() => {
                 if (window.game && window.game.endTurn) {
                     window.game.endTurn();
@@ -332,6 +349,9 @@ class AIPlayerRules {
         }
         
         this.gameRules.hasPlayed = true;
+        
+        // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de selección
+        this.playedCard = this.currentCard ? this.currentCard.name : null;
         
         if (['flaqueza', 'duelo', 'bacia', 'pies', 'doncella', 'princesa', 'cuchicheos'].includes(card.type)) {
             let targetPlayer;
@@ -380,6 +400,10 @@ class AIPlayerRules {
             console.log(`🤖 IA: Bálsamo de Fierabrás ya procesado en showPlayOptions`);
             
             this.gameRules.aiSelectionHandled = false;
+            
+            // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de protección
+            this.playedCard = this.currentCard ? this.currentCard.name : null;
+            
             this.currentCard = null;
             this.currentCardIndex = undefined;
             
@@ -392,6 +416,10 @@ class AIPlayerRules {
             
             this.gameRules.hasPlayed = true;
             this.gameRules.aiSelectionHandled = false;
+            
+            // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de doble-acción
+            this.playedCard = this.currentCard ? this.currentCard.name : null;
+            
             this.currentCard = null;
             this.currentCardIndex = undefined;
             
@@ -406,8 +434,22 @@ class AIPlayerRules {
             }
             this.useLibros(cardIndex);
             this.gameRules.aiSelectionHandled = false;
+            
+            // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de evento
+            this.playedCard = this.currentCard ? this.currentCard.name : null;
+            
             this.currentCard = null;
             this.currentCardIndex = undefined;
+            
+            // ✅ NUEVO: Continuar jugando después de usar Libros de caballería
+            console.log(`📚 IA: Continuando turno después de usar Libros de caballería`);
+            await this.delay(2000);
+            
+            // Jugar la carta adicional que recibió
+            if (this.gameRules.librosMode && !this.gameRules.hasPlayed) {
+                console.log(`📚 IA: Jugando carta adicional después de Libros de caballería`);
+                this.playAICard();
+            }
         }
     }
 
@@ -487,6 +529,7 @@ class AIPlayerRules {
         
         this.gameRules.hasPlayed = true;
         this.gameRules.aiSelectionHandled = false;
+        
         this.currentCard = null;
         this.currentCardIndex = undefined;
         
@@ -519,25 +562,28 @@ class AIPlayerRules {
         const player = this.gameRules.players[this.gameRules.currentPlayer];
         if (this.currentCardIndex >= 0 && this.currentCardIndex < player.hand.length) {
             const card = player.hand[this.currentCardIndex];
-            console.log(`[DEBUG] addEquipment IA: Equipando "${card.name}" como ${equipmentType}. Mano antes: ${player.hand.length} cartas`);
             
             player.hand.splice(this.currentCardIndex, 1);
-            console.log(`[DEBUG] addEquipment IA: "${card.name}" removida de la mano. Mano después: ${player.hand.length} cartas`);
-            console.log(`✅ CARTA EQUIPADA: ${this.gameRules.getEquipmentName(equipmentType)} removida de la mano`);
         }
         
         this.gameRules.hasPlayed = true;
+        
+        // ✅ CORREGIDO: Guardar la carta antes de resetear para que se muestre en playAITurn
+        this.playedCard = this.currentCard ? this.currentCard.name : null;
+        
         this.currentCard = null;
         this.currentCardIndex = undefined;
         
         if (success) {
-            console.log(`🔧 IA equipó: ${this.gameRules.getEquipmentName(equipmentType)}`);
+            // ✅ SIMPLIFICADO: Solo mostrar equipamiento añadido
+            console.log(`🔧 IA equipó: "${this.gameRules.getEquipmentName(equipmentType)}"`);
             // ✅ MEJORADO: Mostrar mensaje específico de equipamiento
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) equipó: ${this.gameRules.getEquipmentName(equipmentType)}`);
             }
         } else {
-            console.log(`🔧 IA ya tenía: ${this.gameRules.getEquipmentName(equipmentType)}`);
+            // ✅ SIMPLIFICADO: Solo mostrar si ya tenía el equipamiento
+            console.log(`🔧 IA ya tenía: "${this.gameRules.getEquipmentName(equipmentType)}"`);
             // ✅ MEJORADO: Mostrar mensaje cuando ya tiene el equipamiento
             if (window.game && window.game.updateStatus) {
                 window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) ya tenía: ${this.gameRules.getEquipmentName(equipmentType)}`);
@@ -558,9 +604,8 @@ class AIPlayerRules {
         }
         
         // ✅ NUEVO: Final automático del turno para IA
-        if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
-            console.log(`🤖 IA: Turno completado, listo para finalizar`);
-            // ✅ CORREGIDO: Finalizar turno automáticamente después de equipar
+        if (this.gameRules.hasPlayed) {
+            // ✅ CORREGIDO: Finalizar turno automáticamente después de equipar (incluyendo modo libros)
             setTimeout(() => {
                 if (window.game && window.game.endTurn) {
                     window.game.endTurn();
@@ -596,9 +641,9 @@ class AIPlayerRules {
             }
             
             // ✅ NUEVO: Final automático del turno para IA
-            if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
+            if (this.gameRules.hasPlayed) {
                 console.log(`🤖 IA: Turno completado, listo para finalizar`);
-                // ✅ CORREGIDO: Finalizar turno automáticamente después de proteger
+                // ✅ CORREGIDO: Finalizar turno automáticamente después de proteger (incluyendo modo libros)
                 setTimeout(() => {
                     if (window.game && window.game.endTurn) {
                         window.game.endTurn();
@@ -702,6 +747,10 @@ class AIPlayerRules {
                 
                 this.discardCurrentCard();
                 this.gameRules.hasPlayed = true;
+                
+                // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de robo (protegido)
+                this.playedCard = this.currentCard ? this.currentCard.name : null;
+                
                 this.currentCard = null;
                 this.currentCardIndex = undefined;
                 
@@ -734,6 +783,10 @@ class AIPlayerRules {
                 
                 this.discardCurrentCard();
                 this.gameRules.hasPlayed = true;
+                
+                // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de robo (exitoso)
+                this.playedCard = this.currentCard ? this.currentCard.name : null;
+                
                 this.currentCard = null;
                 this.currentCardIndex = undefined;
                 
@@ -757,6 +810,10 @@ class AIPlayerRules {
             }
             this.discardCurrentCard();
             this.gameRules.hasPlayed = true;
+            
+            // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de robo (no encontrado)
+            this.playedCard = this.currentCard ? this.currentCard.name : null;
+            
             this.currentCard = null;
             this.currentCardIndex = undefined;
             
@@ -783,6 +840,10 @@ class AIPlayerRules {
         
         this.discardCurrentCard();
         this.gameRules.hasPlayed = true;
+        
+        // ✅ CORREGIDO: Guardar la carta antes de resetear para cartas de reemplazo
+        this.playedCard = this.currentCard ? this.currentCard.name : null;
+        
         this.currentCard = null;
         this.currentCardIndex = undefined;
         
@@ -798,7 +859,7 @@ class AIPlayerRules {
 
     activateMolino() {
         this.gameRules.molinoActive = true;
-        this.gameRules.molinoTurns = 4; // Una ronda completa (4 jugadores)
+        this.gameRules.molinoTurns = this.gameRules.playerCount; // 1 ronda completa (según número de jugadores)
         this.gameRules.molinoPlayer = this.gameRules.currentPlayer;
         console.log(`🌪️ IA activó Molino de viento`);
         // ✅ MEJORADO: Mostrar mensaje específico de evento
@@ -812,6 +873,12 @@ class AIPlayerRules {
         // ✅ NUEVO: Final automático del turno para IA
         if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
             console.log(`🤖 IA: Turno completado, listo para finalizar`);
+            // ✅ NUEVO: Finalizar turno automáticamente después de activar molino
+            setTimeout(() => {
+                if (window.game && window.game.endTurn) {
+                    window.game.endTurn();
+                }
+            }, 2000);
         }
     }
 
@@ -869,6 +936,12 @@ class AIPlayerRules {
         // ✅ NUEVO: Final automático del turno para IA
         if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
             console.log(`🤖 IA: Turno completado, listo para finalizar`);
+            // ✅ NUEVO: Finalizar turno automáticamente después de ejecutar vueltaACasa
+            setTimeout(() => {
+                if (window.game && window.game.endTurn) {
+                    window.game.endTurn();
+                }
+            }, 2000);
         }
     }
 
@@ -914,29 +987,54 @@ class AIPlayerRules {
     useLibros(cardIndex) {
         console.log(`📚 IA usando Libros de caballería`);
         
+        // Descartar la carta "Libros de caballería"
         const card = this.gameRules.players[this.gameRules.currentPlayer].hand[cardIndex];
         this.gameRules.players[this.gameRules.currentPlayer].hand.splice(cardIndex, 1);
         this.gameRules.discardPile.push(card);
         
-        // ✅ CORREGIDO: Para la IA, usar Libros es como jugar una carta normal
-        this.gameRules.hasPlayed = true;
-        this.currentCard = null;
-        this.currentCardIndex = undefined;
+        // ✅ CORREGIDO: Buscar y recibir la carta de complemento que más arriba esté en el mazo
+        let complementoCard = null;
+        let complementoIndex = -1;
         
-        console.log(`📚 IA usó Libros de caballería - turno completado`);
+        // Buscar desde la parte superior del mazo hacia abajo
+        for (let i = this.gameRules.deck.length - 1; i >= 0; i--) {
+            const deckCard = this.gameRules.deck[i];
+            if (deckCard.category === 'complemento') {
+                complementoCard = deckCard;
+                complementoIndex = i;
+                break;
+            }
+        }
+        
+        if (complementoCard) {
+            // Remover la carta de complemento del mazo
+            this.gameRules.deck.splice(complementoIndex, 1);
+            // Añadirla a la mano del jugador
+            this.gameRules.players[this.gameRules.currentPlayer].hand.push(complementoCard);
+            console.log(`📚 IA recibió carta de complemento: ${complementoCard.name}`);
+        } else {
+            console.log(`📚 IA: No se encontraron cartas de complemento en el mazo`);
+        }
+        
+        // Activar modo libros para permitir jugar otra carta
+        this.gameRules.librosMode = true;
+        this.gameRules.hasPlayed = false; // Permitir jugar otra carta
+        
+        console.log(`📚 IA activó modo libros - puede jugar una carta adicional`);
+        
+        // ✅ CORREGIDO: Actualizar visualización inmediatamente
+        if (window.game && window.game.updateDisplay) {
+            window.game.updateDisplay();
+        }
+        
         // ✅ MEJORADO: Mostrar mensaje específico de evento
         if (window.game && window.game.updateStatus) {
             window.game.updateStatus(`🤖 IA (Jugador ${this.gameRules.currentPlayer + 1}) usó: Libros de caballería`);
         }
         
-        if (window.game && window.game.updateDisplay) {
-            window.game.updateDisplay();
-        }
-        
-        // ✅ NUEVO: Final automático del turno para IA
-        if (this.gameRules.hasPlayed && !this.gameRules.librosMode) {
-            console.log(`🤖 IA: Turno completado, listo para finalizar`);
-        }
+        // ✅ CORREGIDO: NO finalizar automáticamente el turno
+        // La IA debe poder jugar la carta adicional que recibió
+        console.log(`📚 IA: Turno NO finaliza automáticamente - puede jugar carta adicional`);
     }
 
     // ========================================
@@ -1186,35 +1284,7 @@ class AIPlayerRules {
     }
 
     showCardCount() {
-        // ✅ CORREGIDO: Contar cartas de TODOS los jugadores
-        let totalHandCount = 0;
-        let totalEquipmentCount = 0;
-        
-        for (let i = 0; i < this.gameRules.playerCount; i++) {
-            const player = this.gameRules.players[i];
-            totalHandCount += player.hand.length;
-            
-            // ✅ CORREGIDO: Contar equipamientos + cartas de protección
-            Object.values(player.equipment).forEach(equipment => {
-                if (equipment) {
-                    totalEquipmentCount++; // Contar el equipamiento
-                    if (equipment.protectionCard) {
-                        totalEquipmentCount++; // Contar la carta de protección
-                    }
-                }
-            });
-        }
-        
-        const deckCount = this.gameRules.deck.length;
-        const discardCount = this.gameRules.discardPile.length;
-        const total = totalHandCount + totalEquipmentCount + deckCount + discardCount;
-        
-        console.log(`📊 CONTEO DE CARTAS (Turno IA):`);
-        console.log(`  📋 En manos: ${totalHandCount} cartas`);
-        console.log(`  🛡️ Equipadas: ${totalEquipmentCount} cartas`);
-        console.log(`  🃏 En mazo: ${deckCount} cartas`);
-        console.log(`  🗑️ En descarte: ${discardCount} cartas`);
-        console.log(`  📈 TOTAL: ${total}/52 cartas`);
+        // ✅ ELIMINADO: Logs de conteo de cartas para simplificar
     }
 }
 

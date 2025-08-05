@@ -888,8 +888,9 @@ body.main-page::before {
 
 .modal h3 {
     margin-top: 0;
-    color: #f4d03f;
+    color: white;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-align: center;
 }
 
 .player-options, .action-options, .protection-options, .destination-options {
@@ -906,7 +907,7 @@ body.main-page::before {
     background: linear-gradient(145deg, #4a2c1a, #3d2416);
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: bold;
+    font-size: 1rem;
     color: white;
     font-family: 'Pirata One', cursive;
 }
@@ -970,12 +971,13 @@ body.main-page::before {
 }
 
 .mode-selection-content {
-    background: linear-gradient(145deg, #2c1810, #1a0f08);
-    border: 3px solid #8B4513;
+    /* background: linear-gradient(145deg, #2c1810, #1a0f08);
+    border: 3px solid #8B4513; */
+    background: #fff3;
     padding: 40px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    /* box-shadow: 0 20px 40px rgba(0,0,0,0.5); */
     color: white;
 }
 
@@ -1064,10 +1066,11 @@ body.main-page::before {
 }
 
 .player-count-selection h3 {
-    color: #f4d03f;
+    /* color: #f4d03f; */
+    color: white;
     margin-bottom: 30px;
     font-size: 2em;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 3px 3px 5px rgba(0,0,0,1);
 }
 
 .player-count-buttons {
@@ -1078,28 +1081,67 @@ body.main-page::before {
 }
 
 .player-count-btn {
+    background: linear-gradient(145deg, #2c1810, #1a0f08);
+    border: 3px solid #8B4513;
+    border-radius: 15px;
     padding: 20px 40px;
-    border: 2px solid #8B4513;
-    border-radius: 10px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    background: linear-gradient(145deg, #9b59b6, #8e44ad);
     color: white;
     font-family: 'Pirata One', cursive;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    width: 300px;
+    text-align: center;
     box-shadow: 
         0 4px 8px rgba(0,0,0,0.3),
         inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.player-count-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
 }
 
 .player-count-btn:hover {
-    background: linear-gradient(145deg, #8e44ad, #7d3c98);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(155, 89, 182, 0.4);
-    border-color: #f4d03f;
+    box-shadow: 
+        0 6px 12px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    border-color: #A0522D;
+}
+
+.player-count-btn:hover::before {
+    left: 100%;
+}
+
+.player-count-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.player-count-btn::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #8B4513, #A0522D, #8B4513);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.8;
 }
 
 /* ========================================

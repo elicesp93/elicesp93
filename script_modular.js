@@ -147,7 +147,7 @@ class CaballeroHidalgoGame {
         // Mostrar selector de jugadores en lugar de iniciar el juego directamente
         const playerCountSelection = document.getElementById('player-count-selection');
         if (playerCountSelection) {
-            playerCountSelection.style.display = 'block';
+            playerCountSelection.style.display = 'flex';
         }
         
         // Actualizar indicador de modo
@@ -213,6 +213,11 @@ class CaballeroHidalgoGame {
         this.updateDisplay();
         this.updateStatus("¡Nuevo juego iniciado! El Jugador 1 debe robar una carta.");
         
+        // ✅ NUEVO: Reproducir sonido de notificación si el primer jugador es humano
+        if (!this.isAIPlayer(this.gameRules.currentPlayer)) {
+            this.playNotificationSound();
+        }
+        
         // Si es modo IA y el Jugador 1 es IA, ejecutar su turno
         if (this.gameRules.gameMode === 'ai' && this.isAIPlayer(this.gameRules.currentPlayer)) {
             console.log(`🤖 El Jugador 1 es IA, ejecutando turno automáticamente`);
@@ -271,6 +276,11 @@ class CaballeroHidalgoGame {
             
             this.updateStatus(`Turno del Jugador ${this.gameRules.currentPlayer + 1}. Debe robar una carta.`);
             
+            // ✅ NUEVO: Reproducir sonido de notificación cuando es turno de un jugador humano
+            if (!this.isAIPlayer(this.gameRules.currentPlayer)) {
+                this.playNotificationSound();
+            }
+            
             // ✅ NUEVO: Recuento de cartas al inicio del turno
             if (!this.isAIPlayer(this.gameRules.currentPlayer)) {
                 this.showCardCount();
@@ -280,7 +290,7 @@ class CaballeroHidalgoGame {
             if (this.isAIPlayer(this.gameRules.currentPlayer)) {
                 console.log(`🤖 El siguiente jugador es IA, ejecutando turno automáticamente`);
                 // ✅ MEJORADO: Aumentar tiempo para que el jugador vea el cambio de turno
-                setTimeout(() => this.aiRules.playAITurn(), 3000);
+                setTimeout(() => this.aiRules.playAITurn(), 1000);
             }
         } else {
             this.updateStatus("Debes robar una carta y jugar una carta antes de terminar el turno.");
@@ -847,24 +857,18 @@ class CaballeroHidalgoGame {
     }
 
     showCardCount() {
-        // ✅ CORREGIDO: Contar cartas de TODOS los jugadores
         let totalHandCount = 0;
         let totalEquipmentCount = 0;
-        
-        // Contar cartas en manos de cada jugador
         const handCounts = [];
-        for (let i = 0; i < this.gameRules.playerCount; i++) {
-            const player = this.gameRules.players[i];
-            const handCount = player.hand.length;
-            totalHandCount += handCount;
-            handCounts.push(handCount);
-        }
-        
-        // Contar equipamientos de cada jugador
         const equipmentCounts = [];
+        
         for (let i = 0; i < this.gameRules.playerCount; i++) {
             const player = this.gameRules.players[i];
+            const playerHandCount = player.hand.length;
             let playerEquipmentCount = 0;
+            
+            handCounts.push(playerHandCount);
+            totalHandCount += playerHandCount;
             
             // ✅ CORREGIDO: Contar equipamientos + cartas de protección
             Object.values(player.equipment).forEach(equipment => {
@@ -884,72 +888,53 @@ class CaballeroHidalgoGame {
         const discardCount = this.gameRules.discardPile.length;
         const total = totalHandCount + totalEquipmentCount + deckCount + discardCount;
         
-        // ✅ CORREGIDO: Mostrar el número de turno actual (no el siguiente)
-        console.log(`📊 CONTEO DE CARTAS (Turno ${this.turnCounter}):`);
-        console.log(`  📈 TOTAL: ${total}/52 cartas`);
-        console.log(`  🃏 En mazo: ${deckCount} cartas`);
-        console.log(`  🗑️ En descarte: ${discardCount} cartas`);
-        
-        // Mostrar cartas en manos de cada jugador
-        for (let i = 0; i < this.gameRules.playerCount; i++) {
-            const isAI = this.isAIPlayer(i);
-            console.log(`  📋 En manos Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}: ${handCounts[i]} cartas`);
-        }
-        
-        // Mostrar cartas equipadas de cada jugador
-        for (let i = 0; i < this.gameRules.playerCount; i++) {
-            const isAI = this.isAIPlayer(i);
-            console.log(`  🛡️ En mesa Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}: ${equipmentCounts[i]} cartas`);
-        }
+        // ✅ ELIMINADO: Logs de conteo de cartas para simplificar
     }
 
-    // ✅ NUEVO: Función para mostrar estado detallado del turno
+    // ✅ SIMPLIFICADO: Función para mostrar estado esencial del turno
     showTurnStatus() {
         const currentPlayer = this.gameRules.currentPlayer;
         const player = this.gameRules.players[currentPlayer];
         const isAI = this.isAIPlayer(currentPlayer);
         
-        // ✅ CORREGIDO: Mostrar el número de turno actual (no el siguiente)
-        console.log(`\n🔄 === TURNO ${this.turnCounter} ===`);
+        // ✅ SIMPLIFICADO: Solo información esencial
+        console.log(`\n🔄 === TURNO ${this.gameRules.turn} ===`);
         console.log(`👤 Jugador ${currentPlayer + 1} ${isAI ? '(IA)' : '(Humano)'}`);
+        
+        // ✅ NUEVO: Mostrar si el jugador está saltado
+        if (player.skipped) {
+            console.log(`⏭️ JUGADOR SALTADO - No puede realizar acciones`);
+            return;
+        }
+        
         console.log(`📋 Cartas en mano: ${player.hand.length}`);
         
-        // Mostrar cartas en mano
+        // Mostrar cartas en mano (solo si hay cartas)
         if (player.hand.length > 0) {
             console.log(`   🃏 Cartas: ${player.hand.map(card => `"${card.name}"`).join(', ')}`);
         }
-        
-        // Mostrar equipamiento
-        const equipment = player.equipment;
-        const equipmentList = [];
-        if (equipment.weapon) equipmentList.push(`Arma: ${equipment.weapon.name}`);
-        if (equipment.armor) equipmentList.push(`Armadura: ${equipment.armor.name}`);
-        if (equipment.mount) equipmentList.push(`Montura: ${equipment.mount.name}`);
-        if (equipment.helmet) equipmentList.push(`Yelmo: ${equipment.helmet.name}`);
-        
-        if (equipmentList.length > 0) {
-            console.log(`🛡️ Equipamiento: ${equipmentList.join(', ')}`);
-        } else {
-            console.log(`🛡️ Equipamiento: Ninguno`);
-        }
-        
-        // Mostrar estado del juego
-        console.log(`🎯 Estado: hasDrawn=${this.gameRules.hasDrawn}, hasPlayed=${this.gameRules.hasPlayed}, aiSelectionHandled=${this.gameRules.aiSelectionHandled}`);
-        
-        // ✅ NUEVO: Mostrar estado de todos los jugadores al final del turno
-        this.showAllPlayersStatus();
     }
 
-    // ✅ NUEVO: Función para mostrar el estado de todos los jugadores
+    // ✅ SIMPLIFICADO: Función para mostrar el estado de todos los jugadores
     showAllPlayersStatus() {
-        console.log(`\n📊 === ESTADO DE TODOS LOS JUGADORES ===`);
-        
-        for (let i = 0; i < this.gameRules.playerCount; i++) {
-            const player = this.gameRules.players[i];
-            const isAI = this.isAIPlayer(i);
-            const isCurrent = i === this.gameRules.currentPlayer;
-            
-            console.log(`👤 Jugador ${i + 1} ${isAI ? '(IA)' : '(Humano)'}${isCurrent ? ' (ACTUAL)' : ''}: ${player.hand.length} cartas en mano`);
+        // ✅ ELIMINADO: Logs detallados de todos los jugadores
+        // Solo se mostrará información esencial cuando sea necesario
+    }
+
+    // ========================================
+    // FUNCIÓN DE SONIDO
+    // ========================================
+
+    playNotificationSound() {
+        try {
+            console.log('🔊 Reproduciendo sonido de notificación para jugador humano');
+            const audio = new Audio('sonido/notification_alert.mp3');
+            audio.volume = 0.5; // Establecer volumen al 50%
+            audio.play().catch(error => {
+                console.log('🔇 No se pudo reproducir el sonido de notificación:', error);
+            });
+        } catch (error) {
+            console.log('🔇 Error al cargar el archivo de sonido:', error);
         }
     }
 }

@@ -18,16 +18,12 @@ class HumanPlayerRules {
     // ========================================
 
     playCard(cardIndex) {
-        console.log(`🔍 [DEBUG] playCard INICIADO - Índice: ${cardIndex}, Fase: ${this.gameRules.gamePhase}, hasPlayed: ${this.gameRules.hasPlayed}, librosMode: ${this.gameRules.librosMode}`);
-        
         // ✅ NUEVO: Validar que solo el jugador actual pueda jugar
         if (!this.gameRules.validatePlayerAction(this.gameRules.currentPlayer)) {
-            console.log(`❌ playCard RECHAZADO - No es el turno del jugador`);
             return;
         }
         
         if (this.gameRules.gamePhase !== 'play' || (this.gameRules.hasPlayed && !this.gameRules.librosMode)) {
-            console.log(`❌ [DEBUG] playCard RECHAZADO - Fase incorrecta o ya jugado`);
             return;
         }
 
@@ -35,12 +31,11 @@ class HumanPlayerRules {
         const card = player.hand[cardIndex];
 
         if (!card) {
-            console.log(`❌ [DEBUG] playCard RECHAZADO - Carta no encontrada en índice ${cardIndex}`);
             return false;
         }
 
-        console.log(`🎯 HUMANO JUGANDO CARTA: ${card.name} (${card.category}) - Índice: ${cardIndex}`);
-        console.log(`🔍 [DEBUG] playCard - Mano antes de jugar: ${player.hand.length} cartas`);
+        // ✅ SIMPLIFICADO: Solo mostrar carta jugada
+        console.log(`🎯 Jugador ${this.gameRules.currentPlayer + 1} jugó: "${card.name}"`);
 
         // ✅ NUEVO: Registrar la carta jugada por el humano
         if (window.game && window.game.logCardPlay) {
@@ -59,8 +54,6 @@ class HumanPlayerRules {
         const player = this.gameRules.players[this.gameRules.currentPlayer];
         const card = player.hand[cardIndex];
 
-        console.log(`📤 HUMANO DESCARTANDO CARTA: ${card.name} - Índice: ${cardIndex}`);
-
         this.currentCardIndex = cardIndex;
         this.executeCardEffect(card, cardIndex);
 
@@ -75,7 +68,6 @@ class HumanPlayerRules {
             
             // ✅ CORREGIDO: Final automático del turno en modo Solo y IA para cartas sin interacción, pero NO en modo libros
             if ((this.gameRules.gameMode === 'solo' || this.gameRules.gameMode === 'ai') && !this.gameRules.librosMode) {
-                console.log(`🔄 MODO ${this.gameRules.gameMode.toUpperCase()}: Finalizando turno automáticamente después de carta sin interacción`);
                 setTimeout(() => {
                     if (window.game && window.game.updateDisplay) {
                         window.game.updateDisplay();
@@ -85,7 +77,6 @@ class HumanPlayerRules {
                     }
                 }, 1000);
             } else if ((this.gameRules.gameMode === 'solo' || this.gameRules.gameMode === 'ai') && this.gameRules.librosMode) {
-                console.log(`📚 MODO ${this.gameRules.gameMode.toUpperCase()} + LIBROS: Turno NO finaliza automáticamente - modo libros activo`);
                 // Resetear modo libros después de jugar la carta adicional
                 this.gameRules.librosMode = false;
                 // ✅ CORREGIDO: Finalizar automáticamente el turno después de resetear modo libros
@@ -102,24 +93,16 @@ class HumanPlayerRules {
         this.currentCardIndex = cardIndex;
         const card = this.gameRules.players[this.gameRules.currentPlayer].hand[cardIndex];
         
-        console.log(`⚙️ HUMANO OPCIONES DE JUEGO: ${card.name} (${card.category}) - Índice: ${cardIndex}`);
-        console.log(`🔍 [DEBUG] showPlayOptions - Carta: ${card.name}, Categoría: ${card.category}, Tipo: ${card.type}`);
-        
         if (card.category === 'complemento') {
-            console.log(`🔧 [DEBUG] showPlayOptions - Ejecutando addEquipment para complemento`);
             this.addEquipment(card.type);
             this.finishCardPlay(cardIndex);
         } else if (card.category === 'sabotaje') {
-            console.log(`⚔️ [DEBUG] showPlayOptions - Ejecutando executeCardEffect para sabotaje`);
             this.executeCardEffect(card, cardIndex);
         } else if (card.category === 'doble-accion') {
-            console.log(`🔄 [DEBUG] showPlayOptions - Ejecutando showProtectionOrStealModal para doble-accion`);
             this.showProtectionOrStealModal(card, cardIndex);
         } else if (card.category === 'proteccion') {
-            console.log(`🛡️ [DEBUG] showPlayOptions - Ejecutando useBalsamo para proteccion`);
             this.useBalsamo(cardIndex);
         } else {
-            console.log(`📤 [DEBUG] showPlayOptions - Ejecutando playCardToDiscard por defecto`);
             this.playCardToDiscard(cardIndex);
         }
     }
@@ -1012,7 +995,7 @@ class HumanPlayerRules {
 
     activateMolino() {
         this.gameRules.molinoActive = true;
-        this.gameRules.molinoTurns = 1;
+        this.gameRules.molinoTurns = this.gameRules.playerCount; // 1 ronda completa (según número de jugadores)
         this.gameRules.molinoPlayer = this.gameRules.currentPlayer;
         console.log(`🌪️ HUMANO activó Molino de viento`);
         
@@ -1248,8 +1231,8 @@ class HumanPlayerRules {
                 <h3>Intercambiar cartas con Jugador ${targetPlayerId + 1}</h3>
                 
                 <div style="display: flex; gap: 20px; margin: 20px 0;">
-                    <div style="flex: 1; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-                        <h4 style="margin-top: 0; color: #2c3e50;">Tu mano (Jugador ${this.gameRules.currentPlayer + 1}):</h4>
+                    <div style="flex: 1; border-radius: 8px; padding: 15px; background: #ffffff33;">
+                        <h4 style="margin-top: 0; color: #ddd; margin-bottom: .5rem; text-align: center;">Tu mano (Jugador ${this.gameRules.currentPlayer + 1}):</h4>
                         <div id="current-player-cards" style="display: flex; flex-direction: column; gap: 10px;">
                             ${currentPlayer.hand.map((card, index) => {
                                 // ✅ CORREGIDO: Solo ocultar la carta que se está jugando (la que se descartará)
@@ -1265,7 +1248,7 @@ class HumanPlayerRules {
                                 }
                                 
                                 return `
-                                    <button class="player-option" data-card-index="${index}" data-player="current" style="text-align: left; padding: 12px; border: 2px solid #3498db; border-radius: 6px; background: #ecf0f1; cursor: pointer; transition: all 0.3s ease;">
+                                    <button class="player-option" data-card-index="${index}" data-player="current" style="text-align: left; padding: 12px; border: 2px solid #8B4513; border-radius: 6px; background: #ffffff33; cursor: pointer; transition: all 0.3s ease;">
                                         [${this.gameRules.getTypeLetter(card.category)}] ${card.name}
                                     </button>
                                 `;
@@ -1273,11 +1256,11 @@ class HumanPlayerRules {
                         </div>
                     </div>
                     
-                    <div style="flex: 1; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-                        <h4 style="margin-top: 0; color: #2c3e50;">Mano del Jugador ${targetPlayerId + 1}:</h4>
+                    <div style="flex: 1; border-radius: 8px; padding: 15px; background: #ffffff33;">
+                        <h4 style="margin-top: 0; color: #ddd; margin-bottom: .5rem; text-align: center;">Mano del Jugador ${targetPlayerId + 1}:</h4>
                         <div id="target-player-cards" style="display: flex; flex-direction: column; gap: 10px;">
                             ${targetPlayer.hand.map((card, index) => `
-                                <button class="player-option" data-card-index="${index}" data-player="target" style="text-align: left; padding: 12px; border: 2px solid #e74c3c; border-radius: 6px; background: #ecf0f1; cursor: pointer; transition: all 0.3s ease;">
+                                <button class="player-option" data-card-index="${index}" data-player="target" style="text-align: left; padding: 12px; border: 2px solid #8B4513; border-radius: 6px; background: #ffffff33; cursor: pointer; transition: all 0.3s ease;">
                                     [${this.gameRules.getTypeLetter(card.category)}] ${card.name}
                                 </button>
                             `).join('')}
@@ -1285,9 +1268,9 @@ class HumanPlayerRules {
                     </div>
                 </div>
                 
-                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <div style="margin-top: 20px; padding: 15px; background: #ffffff22; border-radius: 8px;">
                     <p style="margin: 0 0 10px 0;"><strong>Instrucciones:</strong> Primero selecciona una carta de tu mano, luego una carta del jugador objetivo.</p>
-                    <p style="color: #666; font-size: 0.9em; margin: 0;"><em>Nota: La carta "Cuchicheos de ventero" que estás jugando no aparece en la lista porque se descartará al final de la acción.</em></p>
+                    <p style="color: #fff; font-size: 0.9em; margin: 0;"><em>Nota: La carta "Cuchicheos de ventero" que estás jugando no aparece en la lista porque se descartará al final de la acción.</em></p>
                     <div id="exchange-status" style="margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 5px; display: none; border: 1px solid #4caf50;"></div>
                 </div>
                 
