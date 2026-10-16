@@ -1,7 +1,9 @@
 {
   "name": "Nano Banana AI Generator",
   "description": "Genera e inserta imágenes creadas con Nano Banana AI en el lienzo de Penpot",
+  "version":"2",
   "code": "plugin.js",
+  "ui":"index.html",
   "icon": "recursos/Card_insight_back.png",
   "permissions": [
     "content:read",
